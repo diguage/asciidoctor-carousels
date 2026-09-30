@@ -16,7 +16,7 @@ The following child blocks are supported:
 * Asciidoctor Diagram block (e.g., `[plantuml]`)
 * Asciidoctor Diagram block macro (e.g., `plantuml::file.puml[]`)
 * Asciidoctor Diagram inline macro on its own paragraph (e.g., `plantuml:file.puml[]`)
-* any other paragraph that contains a single inline image (e.g., `image:logo.svg[]`)
+* any other paragraph that contains a single inline image (e.g., `+image:logo.svg[]+`)
 
 The extension does not redefine image or diagram processing.
 It delegates each slide to the normal AsciiDoc converters, so existing image and diagram attributes continue to work.
