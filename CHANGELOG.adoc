@@ -2,9 +2,28 @@
 
 This document provides a summary of notable changes to the Asciidoctor Carousels project by release.
 
-== 0.1.0.alpha.1 (unreleased)
+== 0.1.0.alpha.3
+
+* Generate linked carousel CSS and JavaScript assets when `linkcss` is enabled.
+* Derive the script output directory from `stylesdir` when `scriptsdir` is not set.
+* Skip asset file generation when the stylesheet or script path is an external URL.
+* Add explanatory comments to the carousel JavaScript.
+* Improve the hover state of the previous and next controls.
+* Fix autoplay carousels from scrolling the page to the carousel when a slide changes.
+* Enlarge slide indicators and show the slide number inside each indicator.
+* Add autoplay progress fill, paused state, and clicked state for indicators.
+* Center images horizontally and vertically inside each slide.
+
+== 0.1.0.alpha.2
+
+* Correct the code repository URL in the gem metadata.
+
+== 0.1.0.alpha.1
 
 * Initial implementation of the `carousel` block extension.
-* Add support for image blocks, inline image paragraphs, and Asciidoctor Diagram blocks, block macros, and inline macros.
-* Add responsive stylesheet and dependency-free script with autoplay, loop, controls, indicators, keyboard, touch, and fade support.
-* Add Ruby gem packaging and RSpec test suite.
+* Add support for block image macros and paragraphs containing a single inline image.
+* Add support for Asciidoctor Diagram blocks, block macros, and inline macros.
+* Add a responsive stylesheet and a dependency-free script with autoplay, loop, fade, controls, indicators, keyboard, touch, and pause-on-hover support.
+* Position slide captions over the top-left corner of the image.
+* Add Ruby gem packaging, RSpec tests, RuboCop configuration, and GitHub Actions CI.
+* Verify compatibility across CRuby, JRuby, and TruffleRuby versions.
