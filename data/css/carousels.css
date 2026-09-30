@@ -46,11 +46,17 @@
 }
 
 .carousel-slide-caption {
-  padding: 0.75rem 1rem;
-  background-color: #fff;
-  color: rgba(0, 0, 0, 0.8);
-  font-size: 0.9em;
-  line-height: 1.45;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  max-width: calc(100% - 2rem);
+  padding: 0.4rem 0.75rem;
+  background-color: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-size: 0.875em;
+  line-height: 1.4;
+  pointer-events: none;
 }
 
 .carousel-control {

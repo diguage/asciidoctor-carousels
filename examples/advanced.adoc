@@ -3,7 +3,7 @@
 
 [carousel#brand-tour%autoplay%loop%fade%pause-on-hover,interval=2500,height=32rem]
 ====
-.Color
+// .Color
 image::logo-fill-color.svg[Asciidoctor color logo]
 
 .Square
