@@ -1,0 +1,251 @@
+= Asciidoctor Carousels
+
+本文档提出一种 AsciiDoc 走马灯相册块语法，命名为 `carousel`。
+它用于把多张图片组织成一个可轮播的相册，同时尽量复用已有的 `image::` 块级图片宏语法，让用户可以把现有的图片使用经验直接带到相册里。
+
+当前内容是设计草案，用来梳理语法边界、属性、转换规则和兼容性。
+在成为正式规范前，还需经过讨论并确定若干默认值。
+
+== 设计目标
+
+* 复用 AsciiDoc 现有的块样式和 example 结构容器，不新增分隔符。
+* 不新增图片宏，每一页仍然是一条普通的块级 `image::...[]` 宏。
+* 保留图片宏已有的全部属性，如尺寸、链接、角色、SVG 处理和输出格式专属尺寸。
+* 在没有对应扩展或非 HTML 后端时，内容仍能作为普通 example 块和图片序列降级显示。
+* 与 `[tabs]`、`[%collapsible]` 等现有语法保持一致的扩展方式。
+
+== 核心语法
+
+走马灯相册是一个声明了 `carousel` 块样式的 example 块。
+块内每条块级图片宏对应一页。
+
+----
+[carousel]
+====
+.Sunset over the bay
+image::images/sunset.jpg[Sunset,800,600]
+
+.Beach at noon
+image::images/beach.jpg[Beach,800,600]
+
+.City at dusk
+image::images/city.jpg[City,800,600]
+====
+----
+
+解析要点：
+
+* 块样式 `carousel` 放在 example 结构容器的第一位置属性中。
+* example 容器继续使用现有的 `====` 分隔符，内容模型为 compound。
+* 每个子块必须是块级图片宏；每个图片宏成为一个 slide。
+* 图片宏上方的块标题，或图片宏 attrlist 中的 `title` 属性，作为该页的说明文字。
+
+== 复用图片宏的既有能力
+
+carousel 不定义新的图片属性，而是要求处理器逐页复用图片块的正常转换逻辑。
+因此以下特性都可以直接使用：
+
+* 位置属性：第 1 个是 `alt`，第 2 个是 `width`，第 3 个是 `height`。
+* 块属性行：`[#id.role]`、`.Title` 仍写在每条图片宏上方，作用范围是该 slide。
+* 命名属性：`link`、`window`、`align`、`float`、`format`、`fallback`、`imagesdir`、`scale`、`scaledwidth`、`pdfwidth`、`role`、`title`、`id` 等。
+* 选项：`nofollow`、`noopener`，以及 SVG 专用的 `inline`、`interactive`。
+* 角色：`role=thumb`、`[.thumb]`、`related`、`rel` 等。
+* 目标解析：相对路径遵守文档级 `imagesdir`；URL 目标、SVG 识别逻辑不变。
+
+下面是一个尽量体现复用能力的例子。
+
+----
+[carousel]
+====
+[#slide-sunset.thumb,align=center]
+.Sunset
+image::images/sunset.jpg[Sunset,800,600,link=https://example.org,window=_blank,opts=nofollow]
+
+.Beach
+image::images/beach.svg[Beach,800,600,opts=interactive,fallback=beach.png]
+
+.City
+image::images/city.jpg[City,pdfwidth=80%,scaledwidth=25%]
+====
+----
+
+== 每页说明文字
+
+slide 的说明文字按以下优先级确定：
+
+. 图片宏上方的块标题，例如 `.Sunset`。
+. 图片宏 attrlist 中的 `title="Sunset"`。
+. `alt` 文本。
+
+carousel 内部不再为这些标题添加 “Figure N.” 前缀，而是直接作为该页的 caption。
+块标题是内容属性，可以继续使用行内格式化。
+
+----
+[carousel]
+====
+._Sunset_ over the bay
+image::images/sunset.jpg[Sunset,800,600]
+====
+----
+
+== 布局属性
+
+`align` 和 `float` 在 carousel 中需要限定语义：
+
+* `align` 控制图片在单个 slide 舞台内的水平对齐。
+* `float` 在 carousel 上下文中忽略，或按 `align` 处理。
+
+其余与内容、链接、SVG 处理和尺寸有关的属性保持普通图片宏的语义不变。
+
+== 包含或添加多张图片
+
+既可以把图片直接写在 carousel 块里，也可以使用 include 指令把图片序列抽到外部文件。
+
+直接添加：
+
+----
+[carousel]
+====
+image::images/a.jpg[First]
+image::images/b.jpg[Second]
+image::images/c.jpg[Third]
+====
+----
+
+外部包含：
+
+----
+[carousel]
+====
+\include::gallery/slides.adoc[]
+====
+----
+
+其中 `gallery/slides.adoc` 的内容是图片宏序列：
+
+----
+.Sunset over the bay
+image::sunset.jpg[Sunset,800,600]
+
+.Beach at noon
+image::beach.jpg[Beach,800,600]
+----
+
+也可以拆成多个 include：
+
+----
+[carousel]
+====
+\include::gallery/part-1.adoc[]
+
+\include::gallery/part-2.adoc[]
+====
+----
+
+== 块属性
+
+carousel 块沿用 AsciiDoc 通用块属性，包括 `id`、`role`、`title` 和 `options`。
+
+----
+[carousel#tour.hero%autoplay%loop,interval=3000,active-slide=2,height=400px]
+====
+image::images/a.jpg[First]
+image::images/b.jpg[Second]
+image::images/c.jpg[Third]
+====
+----
+
+等价的正式写法：
+
+----
+[carousel,id=tour,role=hero,opts="autoplay,loop",interval=3000,active-slide=2,height=400px]
+====
+image::images/a.jpg[First]
+image::images/b.jpg[Second]
+image::images/c.jpg[Third]
+====
+----
+
+=== 命名属性
+
+[cols="1,3"]
+|===
+|属性 |说明
+
+|`interval`
+|自动切换间隔，单位毫秒，默认建议为 `5000`。
+
+|`active-slide`
+|初始显示第几张，1 起算，默认 `1`。
+
+|`height`
+|舞台高度，CSS 长度，例如 `400px` 或 `24rem`。
+
+|`width`
+|舞台宽度，可选；不写时默认占满内容宽度。
+
+|`aspect-ratio`
+|舞台纵横比提示，例如 `16/9`。
+|===
+
+=== 行为选项
+
+[cols="1,3"]
+|===
+|选项 |说明
+
+|`autoplay`
+|按 `interval` 自动轮播，默认关闭。
+
+|`loop`
+|到达末页后循环到第一页，默认开启。
+
+|`fade`
+|使用淡入淡出而不是水平滑动。
+
+|`pause-on-hover`
+|鼠标悬停时暂停自动轮播。
+
+|`keyboard`
+|支持方向键切换，默认开启。
+
+|`touch`
+|支持触摸滑动，默认开启。
+
+|`controls`
+|显示上一页/下一页按钮，默认显示。
+
+|`nocontrols`
+|隐藏上一页/下一页按钮。
+
+|`indicators`
+|显示底部指示点，默认显示。
+
+|`noindicators`
+|隐藏底部指示点。
+|===
+
+== 转换规则
+
+* 结构形式：example 结构容器，分隔符为四个或更多等号（`====`）。
+* 内容模型：compound。
+* 块样式：第一位置属性为 `carousel`。
+* 子块必须是块级图片宏；每个图片宏转换为一个 slide。
+* 图片宏的转换应复用普通块图片的转换器，再把结果包进 slide 容器。
+* 非图片子块应触发处理器警告，并把整个块回退为普通 example 块。
+* 空 carousel 应触发处理器警告，并输出空块或普通 example 块。
+
+当后端不是 HTML，或未注册 carousel 扩展时，处理器应丢弃自定义包装，把内容按普通 example 块和其中的图片序列进行转换。
+
+== 与现有语法的关系
+
+* `carousel` 不是 AsciiDoc 内置 context 或 style 名，不会与 `image`、`audio`、`video`、`tabs`、`collapsible` 等冲突。
+* 不新增结构容器或分隔符，因此不会和 `----`、`~~~~`、`====` 等现有分隔符冲突。
+* 不新增图片宏，所有 slide 都复用 `image::` 语法。
+
+== 待确认问题
+
+* `interval`、`active-slide` 等属性的默认值和命名是否需要调整。
+* 是否提供 `gallery` 别名，或区分“轮播”与“静态相册”。
+* 是否需要 dlist 变体来支持一页中包含多块内容的复杂 slide。
+* 是否支持跨多个 carousel 同步当前页，类似 tabs 的 sync 机制。

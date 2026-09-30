@@ -2,6 +2,7 @@
 *.rbc
 /.config
 /coverage/
+/deep_cover/
 /InstalledFiles
 /pkg/
 /spec/reports/
@@ -40,6 +41,7 @@ build-iPhoneSimulator/
 
 ## Environment normalization:
 /.bundle/
+/vendor/
 /vendor/bundle
 /lib/bundler/man/
 
@@ -54,3 +56,7 @@ build-iPhoneSimulator/
 
 # Used by RuboCop. Remote config files pulled in from inherit_from directive.
 # .rubocop-https?--*
+
+/.ruby-version
+/Gemfile.lock
+/WORKLOG.adoc
