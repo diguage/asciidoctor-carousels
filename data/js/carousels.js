@@ -23,6 +23,8 @@
       var pauseOnHover = config.pauseOnHover === 'true'
       var isFade = carousel.classList.contains('is-fade')
       var timer
+      var progress = 0
+      var lastTick
 
       slides.forEach(function (slide) { slide.classList.remove('is-hidden') })
       if (keyboard) stage.setAttribute('tabindex', '0')
@@ -41,33 +43,57 @@
         if (!skipFocus && keyboard) stage.focus()
       }
 
-      function next () {
-        var target = activeIndex + 1
-        if (target >= slides.length) target = loop ? 0 : slides.length - 1
-        setActive(target)
-        if (!loop && target === slides.length - 1 && timer) stop()
+      function updateIndicatorProgress (value) {
+        forEach.call(carousel.querySelectorAll('.carousel-indicator'), function (indicator) {
+          var active = indicator.classList.contains('is-active')
+          indicator.style.setProperty('--carousel-progress', active ? value : 0)
+        })
       }
 
-      function prev () {
-        var target = activeIndex - 1
+      function advance (direction, fromAutoplay) {
+        var target = activeIndex + direction
+        if (target >= slides.length) target = loop ? 0 : slides.length - 1
         if (target < 0) target = loop ? slides.length - 1 : 0
         setActive(target)
+        progress = 0
+        updateIndicatorProgress(0)
+        if (!fromAutoplay && autoplay) start()
+        else if (fromAutoplay && !loop && target === slides.length - 1) stop()
       }
 
+      function next () { advance(1, false) }
+
+      function prev () { advance(-1, false) }
+
       function go (index) {
-        setActive(index)
         stop()
-        if (autoplay) start()
+        setActive(index)
+        progress = 0
+        updateIndicatorProgress(0)
       }
 
       function start () {
         if (timer) stop()
-        timer = window.setInterval(next, interval)
+        progress = 0
+        lastTick = undefined
+        updateIndicatorProgress(0)
+        timer = window.requestAnimationFrame(tick)
+      }
+
+      function tick (now) {
+        if (!autoplay) return
+        if (lastTick === undefined) lastTick = now
+        var elapsed = now - lastTick
+        lastTick = now
+        progress += elapsed / interval
+        if (progress >= 1) advance(1, true)
+        else updateIndicatorProgress(progress)
+        if (timer) timer = window.requestAnimationFrame(tick)
       }
 
       function stop () {
         if (!timer) return
-        window.clearInterval(timer)
+        window.cancelAnimationFrame(timer)
         timer = undefined
       }
 
@@ -103,8 +129,14 @@
 
       if (autoplay) start()
       if (pauseOnHover) {
-        carousel.addEventListener('mouseenter', stop)
-        carousel.addEventListener('mouseleave', function () { if (autoplay) start() })
+        carousel.addEventListener('mouseover', function (e) {
+          var related = e.relatedTarget
+          if (!related || !carousel.contains(related)) stop()
+        })
+        carousel.addEventListener('mouseout', function (e) {
+          var related = e.relatedTarget
+          if ((!related || !carousel.contains(related)) && autoplay) start()
+        })
       }
 
       setActive(activeIndex, true)

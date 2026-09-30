@@ -112,27 +112,45 @@
   border: 1px solid #dcdcdc;
   border-radius: 50%;
   background-color: rgba(255, 255, 255, 0.85);
-  color: rgba(0, 0, 0, 0.7);
+  color: #fff;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  overflow: hidden;
+  --carousel-progress: 0;
+}
+
+.carousel-indicator::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #2156a5;
+  border-radius: 50%;
+  transform: scaleX(var(--carousel-progress));
+  transform-origin: left;
+  pointer-events: none;
 }
 
 .carousel-indicator:hover,
 .carousel-indicator:focus-visible {
   background-color: #fff;
-  color: #2156a5;
 }
 
 .carousel-indicator.is-active {
-  background-color: #2156a5;
   color: #fff;
 }
 
 .carousel-indicator span {
+  position: relative;
+  z-index: 1;
   font-size: 0.875rem;
   line-height: 1;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.7);
 }
 
 .carousel.is-fade .carousel-track {
