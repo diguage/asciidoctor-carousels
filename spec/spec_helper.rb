@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-$LOAD_PATH.unshift File.expand_path('../lib', __dir__)
+$:.unshift File.expand_path('../lib', __dir__)
 
 require 'asciidoctor'
 require 'asciidoctor/carousels/version'
@@ -10,8 +10,7 @@ require 'tmpdir'
 
 RSpec.configure do
   def ruby
-    cmd = Shellwords.escape File.join RbConfig::CONFIG['bindir'], RbConfig::CONFIG['ruby_install_name']
-    cmd
+    Shellwords.escape File.join RbConfig::CONFIG['bindir'], RbConfig::CONFIG['ruby_install_name']
   end
 
   def with_memory_logger level = nil

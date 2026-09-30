@@ -21,28 +21,36 @@ describe Asciidoctor::Carousels do
   context 'require' do
     it 'should be able to require asciidoctor/carousels from a Ruby process' do
       script_file = File.join Dir.tmpdir, 'carousels-require.rb'
-      File.write script_file, <<~'END'
-      require 'asciidoctor'
-      require 'asciidoctor/carousels'
-      puts Asciidoctor::Extensions.groups.keys[0].to_s
-      END
-      output = %x(#{ruby} -I#{Shellwords.escape File.expand_path('../lib', __dir__)} #{Shellwords.escape script_file}).lines.map(&:chomp)
-      (expect output).to eql ['carousel']
-    ensure
-      File.unlink script_file
+      begin
+        File.write script_file, <<~'END'
+        require 'asciidoctor'
+        require 'asciidoctor/carousels'
+        puts Asciidoctor::Extensions.groups.keys[0].to_s
+        END
+        lib_path = File.expand_path '../lib', __dir__
+        ruby_command = %(#{ruby} -I#{Shellwords.escape lib_path} #{Shellwords.escape script_file})
+        output = %x(#{ruby_command}).lines.map(&:chomp)
+        (expect output).to eql ['carousel']
+      ensure
+        File.unlink script_file
+      end
     end
 
     it 'should be able to require asciidoctor-carousels from a Ruby process' do
       script_file = File.join Dir.tmpdir, 'carousels-require.rb'
-      File.write script_file, <<~'END'
-      require 'asciidoctor'
-      require 'asciidoctor-carousels'
-      puts Asciidoctor::Extensions.groups.keys[0].to_s
-      END
-      output = %x(#{ruby} -I#{Shellwords.escape File.expand_path('../lib', __dir__)} #{Shellwords.escape script_file}).lines.map(&:chomp)
-      (expect output).to eql ['carousel']
-    ensure
-      File.unlink script_file
+      begin
+        File.write script_file, <<~'END'
+        require 'asciidoctor'
+        require 'asciidoctor-carousels'
+        puts Asciidoctor::Extensions.groups.keys[0].to_s
+        END
+        lib_path = File.expand_path '../lib', __dir__
+        ruby_command = %(#{ruby} -I#{Shellwords.escape lib_path} #{Shellwords.escape script_file})
+        output = %x(#{ruby_command}).lines.map(&:chomp)
+        (expect output).to eql ['carousel']
+      ensure
+        File.unlink script_file
+      end
     end
   end
 
@@ -130,7 +138,8 @@ describe Asciidoctor::Carousels do
     end
 
     it 'should not register docinfo processors for non-HTML output' do
-      (expect (Asciidoctor.load basic_carousel, backend: 'docbook', standalone: true).extensions.docinfo_processors?).to be false
+      doc = Asciidoctor.load basic_carousel, backend: 'docbook', standalone: true
+      (expect doc.extensions.docinfo_processors?).to be false
     end
 
     it 'should register docinfo processors for standalone HTML output' do

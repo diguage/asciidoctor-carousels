@@ -20,7 +20,9 @@ module Asciidoctor
         proc do
           block Block, :carousel
           next if (doc = @document).embedded? || !(doc.attr? 'filetype', 'html')
-          has_stylesheet = ((doc.options[:attributes] || {}).keys.any? {|key| key.delete('@!') == 'carousel-stylesheet' })
+          has_stylesheet = (doc.options[:attributes] || {}).keys.any? do |key|
+            key.delete('@!') == 'carousel-stylesheet'
+          end
           unless (doc.attribute_locked? 'carousel-stylesheet') ||
               has_stylesheet
             doc.set_attr 'carousel-stylesheet'

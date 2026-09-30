@@ -23,7 +23,8 @@ module Asciidoctor
             %(<link rel="stylesheet" href="#{href}"#{(doc.attr? 'htmlsyntax', 'xml') ? '/' : ''}>) # rubocop:disable Style/TernaryParentheses
           elsif (styles = path.empty? ?
               (doc.read_asset DEFAULT_STYLESHEET_FILE) :
-              (doc.read_contents path, start: (doc.attr 'stylesdir'), warn_on_failure: true, label: 'carousel stylesheet'))
+              (doc.read_contents path, start: (doc.attr 'stylesdir'), warn_on_failure: true,
+                label: 'carousel stylesheet'))
             %(<style>\n#{styles.chomp}\n</style>)
           end
         end

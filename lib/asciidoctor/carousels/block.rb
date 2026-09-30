@@ -69,8 +69,6 @@ module Asciidoctor
           :image
         when :paragraph
           single_inline_image?(child) ? :paragraph : nil
-        else
-          nil
         end
       end
 
@@ -131,7 +129,10 @@ module Asciidoctor
       end
 
       def slide_opening slide_id, active
-        %(<div id="#{escape_attr slide_id}" class="carousel-slide#{active ? ' is-active' : ' is-hidden'}" aria-hidden="#{active ? 'false' : 'true'}">)
+        state_class = active ? ' is-active' : ' is-hidden'
+        aria_hidden = active ? 'false' : 'true'
+        %(<div id="#{escape_attr slide_id}" class="carousel-slide#{state_class}") +
+          %( aria-hidden="#{aria_hidden}">)
       end
 
       def append_controls carousel, parent, carousel_id
@@ -142,7 +143,9 @@ module Asciidoctor
       def control_html direction, carousel_id
         label = direction == 'prev' ? 'Previous slide' : 'Next slide'
         glyph = direction == 'prev' ? '&#8249;' : '&#8250;'
-        %(<button type="button" class="carousel-control carousel-control-#{direction}" data-carousel-action="#{direction}" aria-controls="#{escape_attr carousel_id}" aria-label="#{label}">#{glyph}</button>)
+        %(<button type="button" class="carousel-control carousel-control-#{direction}") +
+          %( data-carousel-action="#{direction}") +
+          %( aria-controls="#{escape_attr carousel_id}" aria-label="#{label}">#{glyph}</button>)
       end
 
       def append_indicators carousel, parent, count, active_slide
@@ -150,9 +153,16 @@ module Asciidoctor
         count.times do |idx|
           slide_number = idx + 1
           active = slide_number == active_slide
-          carousel << (create_html_fragment parent, %(<button type="button" class="carousel-indicator#{active ? ' is-active' : ''}" data-carousel-action="go" data-carousel-index="#{idx}" aria-label="Go to slide #{slide_number}"><span>#{slide_number}</span></button>))
+          carousel << (create_html_fragment parent, indicator_html(idx, slide_number, active))
         end
         carousel << (create_html_fragment parent, '</div>')
+      end
+
+      def indicator_html idx, slide_number, active
+        active_class = active ? ' is-active' : ''
+        %(<button type="button" class="carousel-indicator#{active_class}" data-carousel-action="go") +
+          %( data-carousel-index="#{idx}") +
+          %( aria-label="Go to slide #{slide_number}"><span>#{slide_number}</span></button>)
       end
 
       def create_html_fragment parent, html
