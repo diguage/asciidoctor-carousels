@@ -25,9 +25,11 @@ module Asciidoctor
       # Writes the packaged asset to its linked location when linkcss is set.
       # The destination is resolved relative to the document output directory.
       def write_asset doc, web_path, asset_file, label
+        return if %r{\A[a-z][a-z0-9+.-]*://}i.match? web_path
+        outdir = doc.attr('outdir') || doc.options[:to_dir]
+        return unless outdir
         asset = doc.read_asset asset_file
         return unless asset
-        outdir = doc.attr('outdir') || doc.options[:to_dir] || doc.base_dir
         dest = doc.normalize_system_path web_path, outdir, nil, target_name: label
         ::Asciidoctor::Helpers.mkdir_p ::File.dirname dest
         ::File.write dest, asset
