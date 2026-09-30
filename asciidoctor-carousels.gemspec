@@ -16,10 +16,10 @@ Gem::Specification.new do |s|
   # NOTE required ruby version is informational only; it's not enforced since it can't be overridden and can cause builds to break
   #s.required_ruby_version = '>= 2.3.0'
   s.metadata = {
-    'bug_tracker_uri' => 'https://github.com/asciidoctor/asciidoctor-carousels/issues',
-    'changelog_uri' => 'https://github.com/asciidoctor/asciidoctor-carousels/blob/main/CHANGELOG.adoc',
+    'bug_tracker_uri' => 'https://github.com/diguage/asciidoctor-carousels/issues',
+    'changelog_uri' => 'https://github.com/diguage/asciidoctor-carousels/blob/main/CHANGELOG.adoc',
     'mailing_list_uri' => 'https://chat.asciidoctor.org',
-    'source_code_uri' => 'https://github.com/asciidoctor/asciidoctor-carousels'
+    'source_code_uri' => 'https://github.com/diguage/asciidoctor-carousels'
   }
 
   # NOTE the logic to build the list of files is designed to produce a usable package even when the git command is not available.
