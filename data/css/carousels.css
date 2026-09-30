@@ -111,7 +111,7 @@
   padding: 0;
   border: 1px solid #dcdcdc;
   border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.85);
+  background-color: #ececec;
   color: #fff;
   cursor: pointer;
   display: inline-flex;
@@ -136,20 +136,25 @@
   pointer-events: none;
 }
 
+.carousel-indicator.is-paused::before {
+  background-color: #7a2518;
+}
+
 .carousel-indicator:hover,
 .carousel-indicator:focus-visible {
   background-color: #fff;
 }
 
-.carousel-indicator.is-active {
-  color: #fff;
-}
-
 .carousel-indicator span {
   position: relative;
   z-index: 1;
+  color: #333;
   font-size: 0.875rem;
   line-height: 1;
+}
+
+.carousel-indicator.is-active span {
+  color: #fff;
   text-shadow: 0 0 2px rgba(0, 0, 0, 0.7);
 }
 

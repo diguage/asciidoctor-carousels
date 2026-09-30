@@ -50,13 +50,18 @@
         })
       }
 
+      function setPaused (paused) {
+        var indicator = carousel.querySelector('.carousel-indicator.is-active')
+        if (indicator) indicator.classList[paused ? 'add' : 'remove']('is-paused')
+      }
+
       function advance (direction, fromAutoplay) {
         var target = activeIndex + direction
         if (target >= slides.length) target = loop ? 0 : slides.length - 1
         if (target < 0) target = loop ? slides.length - 1 : 0
         setActive(target)
-        progress = 0
-        updateIndicatorProgress(0)
+        progress = autoplay ? 0 : 1
+        updateIndicatorProgress(progress)
         if (!fromAutoplay && autoplay) start()
         else if (fromAutoplay && !loop && target === slides.length - 1) stop()
       }
@@ -68,12 +73,14 @@
       function go (index) {
         stop()
         setActive(index)
-        progress = 0
-        updateIndicatorProgress(0)
+        progress = 1
+        updateIndicatorProgress(progress)
+        setPaused(autoplay)
       }
 
       function start () {
         if (timer) stop()
+        setPaused(false)
         progress = 0
         lastTick = undefined
         updateIndicatorProgress(0)
@@ -140,6 +147,7 @@
       }
 
       setActive(activeIndex, true)
+      updateIndicatorProgress(autoplay ? 0 : 1)
       carousel.classList.remove('is-loading')
       carousel.classList.add('is-loaded')
     })
