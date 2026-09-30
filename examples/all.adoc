@@ -1,0 +1,61 @@
+= All Examples
+:imagesdir: images
+
+== Basic Carousel
+
+
+The images for this example are stored in the `images` directory.
+
+[carousel]
+====
+.Asciidoctor color logo
+image::logo-fill-color.svg[Asciidoctor color logo]
+
+.Asciidoctor square color logo
+image::logo-fill-square-color.svg[Asciidoctor square color logo]
+
+.Asciidoctor outline logo
+image::logo-outline-color.svg[Asciidoctor outline logo]
+====
+
+
+
+== Advanced Carousel
+
+
+[carousel#brand-tour%autoplay%loop%fade%pause-on-hover,interval=2500,height=32rem]
+====
+// .Color
+image::logo-fill-color.svg[Asciidoctor color logo]
+
+.Square
+image::logo-fill-square-color.svg[Asciidoctor square color logo]
+
+.Outline
+image::logo-outline-color.svg[Asciidoctor outline logo]
+
+.Black and white
+image::logo-fill-bw.svg[Asciidoctor black and white logo]
+====
+
+== Carousel with Diagrams
+
+This example requires Asciidoctor Diagram.
+
+[carousel]
+====
+.Flow diagram
+[plantuml,target=flow,format=svg]
+....
+@startuml
+Alice -> Bob: hello
+@enduml
+....
+
+.Sequence diagram
+plantuml::diagrams/sequence.puml[format=svg]
+
+.Overview diagram
+plantuml:diagrams/overview.puml[format=svg]
+====
+

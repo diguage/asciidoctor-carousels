@@ -1,11 +1,66 @@
 = Examples
 
-Convert a basic carousel with:
+The files in this directory demonstrate the `carousel` block provided by Asciidoctor Carousels.
+They are intended to be converted from the project root directory.
 
- $ asciidoctor -r asciidoctor-carousels basic.adoc
+The example images are SVG logos stored in the `images` directory.
+The AsciiDoc files reference them using the `imagesdir` document attribute, so the examples do not depend on files outside this directory.
 
-Convert the diagram example with:
+== Files
 
- $ asciidoctor -r asciidoctor-carousels -r asciidoctor-diagram diagrams.adoc
+[cols="1,3"]
+|===
+|File |Description
 
-The examples use SVG logos stored in the `images` directory through the `imagesdir` attribute.
+|[.path]_basic.adoc_
+|A minimal carousel containing three block image macros.
+
+|[.path]_advanced.adoc_
+|A carousel configured with autoplay, looping, a fade transition, pause-on-hover, a custom interval, and a fixed stage height.
+
+|[.path]_diagrams.adoc_
+|A carousel that mixes an Asciidoctor Diagram block, a diagram block macro, and a diagram inline macro.
+
+|[.path]_all.adoc_
+|Combines the three examples into one document for a quick review.
+|===
+
+== Running from the project root
+
+The extension does not need to be installed as a gem.
+Use `-I lib` to add the project `lib` directory to Ruby's load path.
+
+Convert the basic example:
+
+ $ asciidoctor -I lib -r asciidoctor-carousels -o examples/basic.html examples/basic.adoc
+
+Convert the advanced example:
+
+ $ asciidoctor -I lib -r asciidoctor-carousels -o examples/advanced.html examples/advanced.adoc
+
+== Running the diagram examples
+
+The diagram examples require Asciidoctor Diagram and the relevant diagram rendering tool.
+For PlantUML, Java must be available on `PATH`.
+
+Convert `diagrams.adoc`:
+
+ $ asciidoctor -I lib -r asciidoctor-carousels -r asciidoctor-diagram -o examples/diagrams.html examples/diagrams.adoc
+
+Convert all examples at once:
+
+ $ asciidoctor -I lib -r asciidoctor-carousels -r asciidoctor-diagram -o examples/all.html examples/all.adoc
+
+Diagram generation writes images next to the document and stores metadata under `.asciidoctor/diagram`.
+If a diagram cannot be rendered, the carousel falls back to a normal example block so the diagram source remains visible.
+
+== Output files
+
+Each command above writes a corresponding `.html` file in this directory.
+Open the file directly in a browser to view the carousel:
+
+ $ open examples/basic.html
+
+On Linux, use:
+
+ $ xdg-open examples/basic.html

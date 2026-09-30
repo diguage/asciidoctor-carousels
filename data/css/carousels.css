@@ -101,29 +101,38 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 0.25rem;
+  gap: 0.5rem;
   padding: 0.5rem;
 }
 
 .carousel-indicator {
-  width: 0.75rem;
-  height: 0.75rem;
+  width: 2rem;
+  height: 2rem;
   padding: 0;
   border: 1px solid #dcdcdc;
   border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.7);
+  background-color: rgba(255, 255, 255, 0.85);
+  color: rgba(0, 0, 0, 0.7);
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .carousel-indicator:hover,
-.carousel-indicator:focus-visible,
+.carousel-indicator:focus-visible {
+  background-color: #fff;
+  color: #2156a5;
+}
+
 .carousel-indicator.is-active {
   background-color: #2156a5;
+  color: #fff;
 }
 
 .carousel-indicator span {
-  display: block;
-  font-size: 0;
+  font-size: 0.875rem;
+  line-height: 1;
 }
 
 .carousel.is-fade .carousel-track {

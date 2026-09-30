@@ -65,3 +65,4 @@ build-iPhoneSimulator/
 examples/.asciidoctor/
 examples/*.html
 examples/*.svg
+examples/images/*.svg
