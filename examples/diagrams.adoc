@@ -1,0 +1,20 @@
+= Carousel with Diagrams
+
+This example requires Asciidoctor Diagram.
+
+[carousel]
+====
+.Flow diagram
+[plantuml,target=flow,format=svg]
+....
+@startuml
+Alice -> Bob: hello
+@enduml
+....
+
+.Sequence diagram
+plantuml::diagrams/sequence.puml[format=svg]
+
+.Overview diagram
+plantuml:diagrams/overview.puml[format=svg]
+====

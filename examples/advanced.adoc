@@ -1,0 +1,17 @@
+= Advanced Carousel
+:imagesdir: images
+
+[carousel#brand-tour%autoplay%loop%fade%pause-on-hover,interval=2500,height=32rem]
+====
+.Color
+image::logo-fill-color.svg[Asciidoctor color logo]
+
+.Square
+image::logo-fill-square-color.svg[Asciidoctor square color logo]
+
+.Outline
+image::logo-outline-color.svg[Asciidoctor outline logo]
+
+.Black and white
+image::logo-fill-bw.svg[Asciidoctor black and white logo]
+====

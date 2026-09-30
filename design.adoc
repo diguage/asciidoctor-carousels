@@ -1,4 +1,4 @@
-= Asciidoctor Carousels
+= Asciidoctor Carousels Design
 
 本文档提出一种 AsciiDoc 走马灯相册块语法，命名为 `carousel`。
 它用于把多张图片组织成一个可轮播的相册，同时尽量复用已有的 `image::` 块级图片宏语法和 Asciidoctor Diagram 的 diagram 块/块宏语法，让用户可以把现有的图片和图表使用经验直接带到相册里。

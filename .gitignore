@@ -59,5 +59,10 @@ build-iPhoneSimulator/
 
 /.ruby-version
 /Gemfile.lock
+/pkg/*.gem
+/*.gem
 /WORKLOG.adoc
 .idea
+examples/.asciidoctor/
+examples/*.html
+examples/*.svg

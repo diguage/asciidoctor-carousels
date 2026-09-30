@@ -1,0 +1,304 @@
+= Asciidoctor Carousels
+
+An Asciidoctor extension that adds a carousel block to the AsciiDoc syntax.
+It turns a sequence of images into a responsive, accessible image carousel (or slideshow).
+
+NOTE: This extension is intended for HTML backends (e.g., `html5`).
+For all other backends, the custom block enclosure is discarded and its visual content is converted normally.
+
+== Overview
+
+Each carousel is constructed from visual blocks enclosed in an example block annotated with the `carousel` style.
+Every child block that resolves to a single image becomes one slide.
+The following child blocks are supported:
+
+* block image macro (`image::`)
+* Asciidoctor Diagram block (e.g., `[plantuml]`)
+* Asciidoctor Diagram block macro (e.g., `plantuml::file.puml[]`)
+* Asciidoctor Diagram inline macro on its own paragraph (e.g., `plantuml:file.puml[]`)
+* any other paragraph that contains a single inline image (e.g., `image:logo.svg[]`)
+
+The extension does not redefine image or diagram processing.
+It delegates each slide to the normal AsciiDoc converters, so existing image and diagram attributes continue to work.
+
+== Install
+
+=== Using gem command
+
+ $ gem install asciidoctor-carousels
+
+=== Using Bundler
+
+Create a [.path]_Gemfile_ in your project:
+
+.Gemfile
+[,ruby]
+----
+source 'https://rubygems.org'
+
+gem 'asciidoctor-carousels'
+----
+
+Then install the dependencies:
+
+ $ bundle
+
+== Syntax
+
+The simplest carousel contains two or more block image macros.
+
+.basic.adoc
+[,asciidoc]
+----
+[carousel]
+====
+.Sunset over the bay
+image::images/sunset.jpg[Sunset,800,600]
+
+.Beach at noon
+image::images/beach.jpg[Beach,800,600]
+
+.City at dusk
+image::images/city.jpg[City,800,600]
+====
+----
+
+The optional block title above each image becomes that slide's caption.
+Within a carousel, those titles are not numbered as figures.
+
+=== Images included from external files
+
+You can use an include directive to load a sequence of slides.
+
+.carousel-with-include.adoc
+[,asciidoc]
+----
+[carousel]
+====
+\include::gallery/slides.adoc[]
+====
+----
+
+The included file contains the image macros:
+
+.gallery/slides.adoc
+[,asciidoc]
+----
+.Sunset over the bay
+image::sunset.jpg[Sunset,800,600]
+
+.Beach at noon
+image::beach.jpg[Beach,800,600]
+----
+
+=== Using Asciidoctor Diagram
+
+Load Asciidoctor Diagram alongside this extension and use any of its block forms as a slide.
+
+.diagrams.adoc
+[,asciidoc]
+----
+[carousel]
+====
+.Flow diagram
+[plantuml,target=flow,format=svg]
+....
+@startuml
+Alice -> Bob: hello
+@enduml
+....
+
+.Sequence diagram
+plantuml::diagrams/sequence.puml[format=svg]
+
+.Overview diagram
+plantuml:diagrams/overview.puml[format=svg]
+====
+----
+
+Diagram attributes such as `target`, `format`, `server-url`, and `svg-type` are passed through to Asciidoctor Diagram unchanged.
+If a diagram outputs a text format (e.g., `txt`), the carousel falls back to a normal example block.
+
+== Options
+
+Options and named attributes are assigned on the carousel block using standard AsciiDoc block attribute syntax.
+
+.carousel-options.adoc
+[,asciidoc]
+----
+[carousel#tour.hero%autoplay%loop,interval=3000,active-slide=2,height=400px]
+====
+image::images/a.jpg[First]
+image::images/b.jpg[Second]
+image::images/c.jpg[Third]
+====
+----
+
+=== Named attributes
+
+[cols="1,3"]
+|===
+|Attribute |Description
+
+|`interval`
+|Autoplay interval in milliseconds. Defaults to `5000`.
+
+|`active-slide`
+|Initial slide number, starting at `1`. Defaults to `1`.
+
+|`height`
+|Optional stage height as a CSS length (e.g., `400px` or `24rem`).
+
+|`width`
+|Optional stage width as a CSS length.
+
+|`aspect-ratio`
+|Optional stage aspect-ratio hint (e.g., `16/9`).
+|===
+
+=== Behavior options
+
+[cols="1,3"]
+|===
+|Option |Description
+
+|`autoplay`
+|Advance slides automatically using `interval`.
+
+|`loop`
+|Wrap from the last slide to the first. Enabled by default.
+
+|`noloop`
+|Disable looping.
+
+|`fade`
+|Use a crossfade transition instead of a horizontal slide transition.
+
+|`pause-on-hover`
+|Pause autoplay while the pointer is over the carousel.
+
+|`keyboard`
+|Enable left and right arrow keys. Enabled by default.
+
+|`nokeyboard`
+|Disable keyboard navigation.
+
+|`touch`
+|Enable swipe navigation on touch devices. Enabled by default.
+
+|`notouch`
+|Disable touch navigation.
+
+|`controls`
+|Show previous and next controls. Enabled by default.
+
+|`nocontrols`
+|Hide the previous and next controls.
+
+|`indicators`
+|Show slide indicators. Enabled by default.
+
+|`noindicators`
+|Hide the slide indicators.
+|===
+
+== Usage
+
+=== CLI
+
+ $ asciidoctor -r asciidoctor-carousels basic.adoc
+
+To use diagrams in a carousel, load Asciidoctor Diagram as well:
+
+ $ asciidoctor -r asciidoctor-carousels -r asciidoctor-diagram diagrams.adoc
+
+You can specify an alternate stylesheet using the `carousel-stylesheet` document attribute.
+
+ $ asciidoctor -r asciidoctor-carousels -a carousel-stylesheet=my-carousel.css basic.adoc
+
+The value of `carousel-stylesheet` is handled in the same way as the built-in `stylesheet` document attribute.
+
+=== API
+
+Require the extension with either of these two forms:
+
+[,ruby]
+----
+require 'asciidoctor'
+require 'asciidoctor-carousels'
+----
+
+[,ruby]
+----
+require 'asciidoctor'
+require 'asciidoctor/carousels'
+----
+
+You can also register the extension with a scoped registry:
+
+[,ruby]
+----
+require 'asciidoctor'
+require 'asciidoctor/carousels/extensions'
+
+registry = Asciidoctor::Extensions.create
+Asciidoctor::Carousels::Extensions.register registry
+
+Asciidoctor.convert_file 'basic.adoc', extension_registry: registry, safe: :safe
+----
+
+== How it Works
+
+The extension transforms the visual blocks inside the example block into a single carousel block that is a specialization of an open block.
+The example block enclosure is discarded.
+
+The carousel interface consists of:
+
+* a stage element that clips the visible slide,
+* a track element that contains the slides,
+* one slide element per visual block,
+* optional previous and next controls,
+* optional slide indicators.
+
+The supporting stylesheet and script are added only when producing a standalone HTML document.
+The stylesheet is added to the end of the `<head>` element and the script is added to the end of the `<body>` element.
+By default, both assets are embedded into the HTML.
+If the `linkcss` attribute is set, the HTML links to these assets instead.
+*In that case, copy the assets from the [.path]_data_ folder of the gem to the linked location.*
+
+The first slide is selected by default, or the slide specified by `active-slide`.
+
+== Managing Assets
+
+The carousel is activated at runtime by a stylesheet and a script.
+Both assets are embedded by default, so there is normally nothing else to do.
+
+If `linkcss` is set, the linked assets must be copied to the expected location.
+The files are [.path]_data/css/carousels.css_ and [.path]_data/js/carousels.js_ in the gem or project repository.
+Copy them as [.path]_asciidoctor-carousels.css_ and [.path]_asciidoctor-carousels.js_ in the directory of the HTML document, or adjust `stylesdir` and `scriptsdir` accordingly.
+
+== Development
+
+=== Run the tests
+
+The test suite is located in the [.path]_spec_ directory and uses RSpec.
+
+ $ bundle exec rspec
+
+=== Lint the code
+
+ $ bundle exec rake lint
+
+=== Build the gem
+
+ $ bundle exec rake build
+
+== Copyright and License
+
+Copyright (C) 2026-present Asciidoctor Carousels contributors.
+Use of this software is granted under the terms of the MIT License.
+See the link:LICENSE[LICENSE] file for the full license text.
+
+== Trademarks
+
+AsciiDoc(R) is a trademark of the Eclipse Foundation, Inc.

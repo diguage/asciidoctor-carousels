@@ -1,0 +1,10 @@
+= Changelog
+
+This document provides a summary of notable changes to the Asciidoctor Carousels project by release.
+
+== 0.1.0.alpha.1 (unreleased)
+
+* Initial implementation of the `carousel` block extension.
+* Add support for image blocks, inline image paragraphs, and Asciidoctor Diagram blocks, block macros, and inline macros.
+* Add responsive stylesheet and dependency-free script with autoplay, loop, controls, indicators, keyboard, touch, and fade support.
+* Add Ruby gem packaging and RSpec test suite.

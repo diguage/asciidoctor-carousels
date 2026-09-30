@@ -1,0 +1,11 @@
+= Examples
+
+Convert a basic carousel with:
+
+ $ asciidoctor -r asciidoctor-carousels basic.adoc
+
+Convert the diagram example with:
+
+ $ asciidoctor -r asciidoctor-carousels -r asciidoctor-diagram diagrams.adoc
+
+The examples use SVG logos stored in the `images` directory through the `imagesdir` attribute.
