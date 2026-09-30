@@ -21,6 +21,9 @@
   flex: 0 0 100%;
   min-width: 100%;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .carousel-slide.is-hidden {
@@ -30,6 +33,7 @@
 .carousel-slide .imageblock,
 .carousel-slide .paragraph {
   margin: 0;
+  width: 100%;
 }
 
 .carousel-slide .imageblock .content,
@@ -133,7 +137,9 @@
   right: 0;
   bottom: 0;
   left: 0;
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   opacity: 0;
   pointer-events: none;
   transition: opacity 300ms ease-in-out;
