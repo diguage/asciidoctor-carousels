@@ -60,3 +60,4 @@ build-iPhoneSimulator/
 /.ruby-version
 /Gemfile.lock
 /WORKLOG.adoc
+.idea
