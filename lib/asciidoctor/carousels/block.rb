@@ -117,7 +117,9 @@ module Asciidoctor
       end
 
       def active_slide_index attrs
-        Integer(attrs['active-slide'] || DEFAULT_ACTIVE_SLIDE, exception: false) || 1
+        slide = attrs['active-slide'] || DEFAULT_ACTIVE_SLIDE
+        slide = slide.to_i
+        slide > 0 ? slide : 1
       end
 
       def option_enabled? attrs, name
