@@ -40,7 +40,6 @@
         forEach.call(carousel.querySelectorAll('.carousel-indicator'), function (indicator, idx) {
           indicator.classList[idx === activeIndex ? 'add' : 'remove']('is-active')
         })
-        if (!skipFocus && keyboard) stage.focus()
       }
 
       function updateIndicatorProgress (value) {
