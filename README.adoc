@@ -1,7 +1,7 @@
 = Asciidoctor Carousels
 
 本文档提出一种 AsciiDoc 走马灯相册块语法，命名为 `carousel`。
-它用于把多张图片组织成一个可轮播的相册，同时尽量复用已有的 `image::` 块级图片宏语法，让用户可以把现有的图片使用经验直接带到相册里。
+它用于把多张图片组织成一个可轮播的相册，同时尽量复用已有的 `image::` 块级图片宏语法和 Asciidoctor Diagram 的 diagram 块/块宏语法，让用户可以把现有的图片和图表使用经验直接带到相册里。
 
 当前内容是设计草案，用来梳理语法边界、属性、转换规则和兼容性。
 在成为正式规范前，还需经过讨论并确定若干默认值。
@@ -9,15 +9,16 @@
 == 设计目标
 
 * 复用 AsciiDoc 现有的块样式和 example 结构容器，不新增分隔符。
-* 不新增图片宏，每一页仍然是一条普通的块级 `image::...[]` 宏。
+* 不新增图片宏，也不修改 Asciidoctor Diagram 的既有写法；每一页可以是普通的块级 `image::...[]` 宏，也可以是 diagram 块或 diagram 块宏。
 * 保留图片宏已有的全部属性，如尺寸、链接、角色、SVG 处理和输出格式专属尺寸。
+* 保留 Asciidoctor Diagram 的 `target`、`format`、`server-url`、`svg-type` 等属性，让 diagram 块和块宏按原样渲染。
 * 在没有对应扩展或非 HTML 后端时，内容仍能作为普通 example 块和图片序列降级显示。
 * 与 `[tabs]`、`[%collapsible]` 等现有语法保持一致的扩展方式。
 
 == 核心语法
 
 走马灯相册是一个声明了 `carousel` 块样式的 example 块。
-块内每条块级图片宏对应一页。
+块内每个能最终转换为单张图片的块对应一页。
 
 ----
 [carousel]
@@ -37,8 +38,9 @@ image::images/city.jpg[City,800,600]
 
 * 块样式 `carousel` 放在 example 结构容器的第一位置属性中。
 * example 容器继续使用现有的 `====` 分隔符，内容模型为 compound。
-* 每个子块必须是块级图片宏；每个图片宏成为一个 slide。
+* 每个子块必须是一个能最终转换为单张图片的视觉块；普通块级图片宏、Asciidoctor Diagram 的 diagram 块、diagram 块宏，或只包含单个内联图片的段落，都可以成为一个 slide。
 * 图片宏上方的块标题，或图片宏 attrlist 中的 `title` 属性，作为该页的说明文字。
+* diagram 块或块宏上方的块标题作为该页的说明文字；如果没有块标题，则回退到 diagram 的 `target` 属性。
 
 == 复用图片宏的既有能力
 
@@ -69,6 +71,101 @@ image::images/city.jpg[City,pdfwidth=80%,scaledwidth=25%]
 ====
 ----
 
+== 与 Asciidoctor Diagram 协作
+
+carousel 把 Asciidoctor Diagram 的 diagram 块、diagram 块宏和内联 diagram 宏视为一等 slide。
+当子块是一个 diagram 块或 diagram 块宏时，carousel 处理器应先让 Asciidoctor Diagram 完成渲染，再把生成的图片包装进 slide。
+当子块是只包含单个内联图片的段落时，carousel 应提取该内联图片，丢弃段落外壳，再把图片包装进 slide。
+
+carousel 不接管 diagram 块自身的解析。
+除 carousel 专属属性外，diagram 子块上的所有其他属性都原样交给 Asciidoctor Diagram 处理，包括 `target`、`format`、`server-url`、`server-type`、`max-get-size`、`svg-type`、`cachedir`、`cache-images`、`nocache`，以及各 diagram 类型定义的专属属性。
+文档级 `<blocktype>-` 前缀属性和全局 `diagram-` 前缀属性也继续生效。
+
+下面是一个使用 diagram 块的例子。
+
+`target` 和 `format` 仍可以使用 Asciidoctor Diagram 的位置属性写法，例如 `[plantuml, flow, svg]`。
+
+----
+[carousel]
+====
+.Flow diagram
+[plantuml,target=flow,format=svg]
+....
+@startuml
+Alice -> Bob: hello
+@enduml
+....
+
+.Sequence diagram
+[plantuml,target=sequence,format=svg]
+....
+@startuml
+Alice -> Bob: Authentication Request
+Bob --> Alice: Authentication Response
+@enduml
+....
+====
+----
+
+也可以使用 diagram 块宏引用外部源码文件。
+
+----
+[carousel]
+====
+.Flow diagram
+plantuml::diagrams/flow.puml[format=svg]
+
+.Sequence diagram
+plantuml::diagrams/sequence.puml[format=svg]
+====
+----
+
+内联 diagram 宏单独成段时，同样可以作为一页。
+
+----
+[carousel]
+====
+.Flow diagram
+plantuml:diagrams/flow.puml[format=svg]
+
+.Sequence diagram
+plantuml:diagrams/sequence.puml[format=svg]
+====
+----
+
+diagram 生成的图片继续遵循 Asciidoctor Diagram 的输出目录和缓存规则。
+例如 `imagesoutdir`、`outdir`、`to_dir`、`base_dir`/`imagesdir`、`cachedir` 等属性不受 carousel 影响。
+
+如果某个 diagram 的 `format` 产生的是文本输出（例如 `txt`），它不满足“单张图片 slide”的要求。
+此时 carousel 应触发处理器警告，并把整个块回退为普通 example 块，而不是强行把文本包装成 slide。
+
+普通图片和 diagram 可以混合使用。
+
+----
+[carousel]
+====
+.Sunset
+image::images/sunset.jpg[Sunset,800,600]
+
+.Flow diagram
+[plantuml,target=flow]
+....
+@startuml
+Alice -> Bob: hello
+@enduml
+....
+====
+----
+
+需要注意：
+
+* 内联 diagram 宏（例如 `plantuml:...[]`）单独成段，且该段落只包含这一个内联图片时，可以作为一个 slide。
+* 如果内联 diagram 宏和其他文本混在同一段落中，它只是该段落中的插图，不单独成为 slide。
+* diagram 块宏和内联 diagram 宏的 target 语义由 Asciidoctor Diagram 决定，通常是文件路径；barcode 等内容型类型除外，carousel 不改变 target 的语义。
+* 如果 Asciidoctor Diagram 未加载，diagram 子块不会转换为图片。此时 carousel 应触发处理器警告，并把整个块回退为普通 example 块，以保留 diagram 源码。
+* diagram 块使用 `....`、`----` 或 `--` 作为分隔符时，只要与外层 example 的 `====` 不同即可正常嵌套。
+* carousel 注册在 example 上下文，Asciidoctor Diagram 注册在 literal、listing、open 上下文以及块宏和内联宏上，两者可以同时加载；实现上应保证 carousel 在解析子块阶段能调用已注册的 Asciidoctor Diagram 处理器。
+
 == 每页说明文字
 
 slide 的说明文字按以下优先级确定：
@@ -76,6 +173,8 @@ slide 的说明文字按以下优先级确定：
 . 图片宏上方的块标题，例如 `.Sunset`。
 . 图片宏 attrlist 中的 `title="Sunset"`。
 . `alt` 文本。
+
+对于 diagram 块、diagram 块宏，或只包含单个内联图片的段落，说明文字优先取块标题；没有块标题时，回退到 diagram 的 `target` 或内联图片的 `alt`。
 
 carousel 内部不再为这些标题添加 “Figure N.” 前缀，而是直接作为该页的 caption。
 块标题是内容属性，可以继续使用行内格式化。
@@ -230,9 +329,11 @@ image::images/c.jpg[Third]
 * 结构形式：example 结构容器，分隔符为四个或更多等号（`====`）。
 * 内容模型：compound。
 * 块样式：第一位置属性为 `carousel`。
-* 子块必须是块级图片宏；每个图片宏转换为一个 slide。
+* 子块必须是能最终转换为单张图片的视觉块；每个视觉块转换为一个 slide。
 * 图片宏的转换应复用普通块图片的转换器，再把结果包进 slide 容器。
-* 非图片子块应触发处理器警告，并把整个块回退为普通 example 块。
+* diagram 块或块宏应先由 Asciidoctor Diagram 渲染成图片，再把结果包进 slide 容器。
+* 只包含单个内联图片的段落应先提取该内联图片，丢弃段落外壳，再把结果包进 slide 容器。
+* 非视觉子块应触发处理器警告，并把整个块回退为普通 example 块。
 * 空 carousel 应触发处理器警告，并输出空块或普通 example 块。
 
 当后端不是 HTML，或未注册 carousel 扩展时，处理器应丢弃自定义包装，把内容按普通 example 块和其中的图片序列进行转换。
@@ -241,7 +342,7 @@ image::images/c.jpg[Third]
 
 * `carousel` 不是 AsciiDoc 内置 context 或 style 名，不会与 `image`、`audio`、`video`、`tabs`、`collapsible` 等冲突。
 * 不新增结构容器或分隔符，因此不会和 `----`、`~~~~`、`====` 等现有分隔符冲突。
-* 不新增图片宏，所有 slide 都复用 `image::` 语法。
+* 不新增图片宏或 diagram 语法，所有 slide 都复用 `image::` 或 Asciidoctor Diagram 的既有写法。
 
 == 待确认问题
 
@@ -249,3 +350,4 @@ image::images/c.jpg[Third]
 * 是否提供 `gallery` 别名，或区分“轮播”与“静态相册”。
 * 是否需要 dlist 变体来支持一页中包含多块内容的复杂 slide。
 * 是否支持跨多个 carousel 同步当前页，类似 tabs 的 sync 机制。
+* diagram 块渲染时机是否需要在规范中明确为“先渲染、后包装”，以降低实现歧义。
