@@ -1,4 +1,4 @@
-name: CI
+name: Ruby Compatibility Test
 
 on:
   push:

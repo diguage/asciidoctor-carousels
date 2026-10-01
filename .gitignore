@@ -66,3 +66,6 @@ examples/.asciidoctor/
 examples/*.html
 examples/*.svg
 examples/images/*.svg
+/examples/assets/scripts/asciidoctor-carousels.js
+/examples/assets/styles/asciidoctor.css
+/examples/assets/styles/asciidoctor-carousels.css
