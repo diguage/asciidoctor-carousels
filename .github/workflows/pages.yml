@@ -1,0 +1,53 @@
+name: Deploy GitHub Pages
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build examples
+    runs-on: ubuntu-latest
+
+    steps:
+      # https://github.com/actions/checkout
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.4'
+          bundler: none
+
+      # https://github.com/actions/setup-java
+      - name: Set up JDK ☕️
+        uses: actions/setup-java@v6
+        with:
+          distribution: 'temurin'
+          java-version: '25'
+          # java-version: 'latest'
+          # distribution: 'corretto'
+          # java-version: '26'
+          # cache: 'maven'
+
+      - name: Install build dependencies
+        run: gem install asciidoctor asciidoctor-diagram asciidoctor-diagram-plantuml
+
+      - name: Build examples
+        run: >-
+          asciidoctor -I lib -r asciidoctor-carousels -r asciidoctor-diagram
+          -a linkcss -a stylesdir=assets/styles
+          -o examples/index.html examples/all.adoc
+
+      # https://github.com/JamesIves/github-pages-deploy-action
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          token: ${{ secrets.pages_token }}
+          branch: gh-pages # The branch the action should deploy to.
+          folder: examples # The folder the action should deploy.
+          single-commit: true
