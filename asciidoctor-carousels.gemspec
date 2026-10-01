@@ -9,12 +9,12 @@ Gem::Specification.new do |s|
   s.version = Asciidoctor::Carousels::VERSION
   s.summary = 'An Asciidoctor extension that adds a carousel block to the AsciiDoc syntax.'
   s.description = 'An Asciidoctor extension that adds a carousel block to the AsciiDoc syntax. The carousel is constructed from visual blocks, such as image macros and Asciidoctor Diagram blocks, enclosed in an example block marked with the carousel style.'
-  s.authors = ['Asciidoctor Carousels contributors']
-  s.email = 'noreply@asciidoctor.org'
-  s.homepage = 'https://asciidoctor.org'
+  s.authors = ['diguage']
+  s.email = ['leejun119@gmail.com']
+  s.homepage = 'https://www.diguage.com'
   s.license = 'MIT'
   # NOTE required ruby version is informational only; it's not enforced since it can't be overridden and can cause builds to break
-  #s.required_ruby_version = '>= 2.3.0'
+  # s.required_ruby_version = '>= 2.3.0'
   s.metadata = {
     'bug_tracker_uri' => 'https://github.com/diguage/asciidoctor-carousels/issues',
     'changelog_uri' => 'https://github.com/diguage/asciidoctor-carousels/blob/main/CHANGELOG.adoc',
