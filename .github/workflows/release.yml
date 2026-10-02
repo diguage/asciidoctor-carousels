@@ -1,0 +1,40 @@
+name: Release
+run-name: ${{ github.workflow }} ${{ github.event.inputs.release-version }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      release-version:
+        description: Enter version to release (e.g., 0.1.0).
+        required: false
+
+jobs:
+  perform:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    environment: releases
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Install Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.4'
+          bundler-cache: true
+
+      - name: Run linter
+        run: bundle exec rake lint
+
+      - name: Run tests
+        run: bundle exec rake spec
+
+      - name: Set up release environment
+        run: |
+          echo RELEASE_VERSION=${{ github.event.inputs.release-version }} >> "$GITHUB_ENV"
+          echo RELEASE_USER=${{ github.actor }} >> "$GITHUB_ENV"
+          echo RELEASE_RUBYGEMS_API_KEY=${{ secrets.RUBYGEMS_API_KEY }} >> "$GITHUB_ENV"
+
+      - name: Build, tag, and publish gem
+        run: ./release.sh
