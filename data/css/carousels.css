@@ -115,8 +115,6 @@
   position: absolute;
   z-index: 3;
   display: none;
-  bottom: calc(100% + 0.5rem);
-  left: 50%;
   transform: translateX(-50%);
   background-color: #fff;
   border: 1px solid #dcdcdc;
@@ -148,6 +146,7 @@
   align-items: center;
   justify-content: center;
   position: relative;
+  overflow: hidden;
   --carousel-progress: 0;
 }
 
@@ -160,6 +159,7 @@
   width: 100%;
   background-color: #2156a5;
   border-radius: 50%;
+  clip-path: circle(50% at 50% 50%);
   transform: scaleX(var(--carousel-progress));
   transform-origin: left;
   pointer-events: none;

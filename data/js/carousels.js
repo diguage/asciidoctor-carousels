@@ -34,12 +34,19 @@
       // lastTick stores the timestamp of the previous autoplay animation frame.
       var lastTick
 
-      // Preview shown when the pointer hovers over an indicator.
-      var preview = document.createElement('div')
-      preview.className = 'carousel-indicator-preview'
-      var previewImg = document.createElement('img')
-      preview.appendChild(previewImg)
-      stage.appendChild(preview)
+      // Preview shown when the pointer hovers over an indicator. It is a
+      // sibling of the indicators so the indicator's overflow clipping does
+      // not hide the preview.
+      var indicators = carousel.querySelector('.carousel-indicators')
+      var preview = null
+      var previewImg = null
+      if (indicators) {
+        preview = document.createElement('div')
+        preview.className = 'carousel-indicator-preview'
+        previewImg = document.createElement('img')
+        preview.appendChild(previewImg)
+        indicators.appendChild(preview)
+      }
 
       // Remove the initial no-JS fallback so all slides can be managed by this script.
       slides.forEach(function (slide) { slide.classList.remove('is-hidden') })
@@ -81,20 +88,24 @@
       // Shows a half-size preview of the slide associated with the hovered
       // indicator, positioned just above that indicator.
       function showPreview (indicator) {
+        if (!preview) return
         var index = parseInt(indicator.dataset.carouselIndex, 10)
         var image = slides[index] && slides[index].querySelector('img')
         if (!image) return
         previewImg.src = image.src
         previewImg.alt = image.alt || ''
-        indicator.appendChild(preview)
         var stageRect = stage.getBoundingClientRect()
+        var indicatorsRect = indicators.getBoundingClientRect()
+        var indicatorRect = indicator.getBoundingClientRect()
         preview.style.width = Math.round(stageRect.width / 4) + 'px'
         preview.style.height = Math.round(stageRect.height / 4) + 'px'
+        preview.style.left = (indicatorRect.left - indicatorsRect.left + indicatorRect.width / 2) + 'px'
+        preview.style.bottom = (indicatorsRect.bottom - indicatorRect.top + 8) + 'px'
         preview.classList.add('is-visible')
       }
 
       function hidePreview () {
-        preview.classList.remove('is-visible')
+        if (preview) preview.classList.remove('is-visible')
       }
 
       // Moves to the adjacent slide. When called from autoplay, it preserves
