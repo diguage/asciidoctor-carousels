@@ -4,10 +4,6 @@ This document provides a summary of notable changes to the Asciidoctor Carousels
 
 == 0.1.0.alpha.4 (2026-10-02) - @diguage
 
-_No changes since previous release._
-
-== 0.1.0.alpha.4
-
 * Add a hover-triggered popup that previews the slide associated with an indicator.
 * Add example links and a combined all-in-one example document.
 * Add Asciidoctor Diagram examples and adjust the advanced example height.
