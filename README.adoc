@@ -1,7 +1,18 @@
 = Asciidoctor Carousels
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
 
-An Asciidoctor extension that adds a carousel block to the AsciiDoc syntax.
+An Asciidoctor extension that adds a carousel block to AsciiDoc.
 It turns a sequence of images into a responsive, accessible image carousel (or slideshow).
+
+Exmaple: https://diguage.github.io/asciidoctor-carousels/[https://diguage.github.io/asciidoctor-carousels/^]
+
+
 
 NOTE: This extension is intended for HTML backends (e.g., `html5`).
 For all other backends, the custom block enclosure is discarded and its visual content is converted normally.
