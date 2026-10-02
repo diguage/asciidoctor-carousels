@@ -34,6 +34,13 @@
       // lastTick stores the timestamp of the previous autoplay animation frame.
       var lastTick
 
+      // Preview shown when the pointer hovers over an indicator.
+      var preview = document.createElement('div')
+      preview.className = 'carousel-indicator-preview'
+      var previewImg = document.createElement('img')
+      preview.appendChild(previewImg)
+      stage.appendChild(preview)
+
       // Remove the initial no-JS fallback so all slides can be managed by this script.
       slides.forEach(function (slide) { slide.classList.remove('is-hidden') })
       // Allow keyboard navigation to reach and interact with the carousel.
@@ -69,6 +76,25 @@
       function setPaused (paused) {
         var indicator = carousel.querySelector('.carousel-indicator.is-active')
         if (indicator) indicator.classList[paused ? 'add' : 'remove']('is-paused')
+      }
+
+      // Shows a half-size preview of the slide associated with the hovered
+      // indicator, positioned just above that indicator.
+      function showPreview (indicator) {
+        var index = parseInt(indicator.dataset.carouselIndex, 10)
+        var image = slides[index] && slides[index].querySelector('img')
+        if (!image) return
+        previewImg.src = image.src
+        previewImg.alt = image.alt || ''
+        indicator.appendChild(preview)
+        var stageRect = stage.getBoundingClientRect()
+        preview.style.width = Math.round(stageRect.width / 4) + 'px'
+        preview.style.height = Math.round(stageRect.height / 4) + 'px'
+        preview.classList.add('is-visible')
+      }
+
+      function hidePreview () {
+        preview.classList.remove('is-visible')
       }
 
       // Moves to the adjacent slide. When called from autoplay, it preserves
@@ -141,6 +167,8 @@
         indicator.addEventListener('click', function () {
           go(parseInt(indicator.dataset.carouselIndex, 10))
         })
+        indicator.addEventListener('mouseenter', function () { showPreview(indicator) })
+        indicator.addEventListener('mouseleave', hidePreview)
       })
 
       // Support left and right arrow keys when the carousel has keyboard focus.

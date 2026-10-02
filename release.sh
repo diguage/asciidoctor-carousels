@@ -13,7 +13,7 @@ if [ -z "$RELEASE_USER" ]; then
 fi
 
 RELEASE_GIT_NAME=$(curl -s https://api.github.com/users/$RELEASE_USER | jq -r .name)
-RELEASE_GIT_EMAIL=$RELEASE_USER@users.noreply.github.com
+RELEASE_GIT_EMAIL=leejun119@gmail.com
 GEMSPEC=$(ls -1 *.gemspec | head -1)
 RELEASE_GEM_NAME=$(ruby -e "print (Gem::Specification.load '$GEMSPEC').name")
 

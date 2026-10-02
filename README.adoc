@@ -213,6 +213,19 @@ image::images/c.jpg[Third]
 |Hide the slide indicators.
 |===
 
+=== Indicator preview
+
+When the pointer hovers over a slide indicator, a popup shows a preview of the slide associated with that indicator.
+The preview is centered above the indicator and disappears when the pointer leaves the indicator.
+
+The preview size is derived from the carousel stage:
+
+* If the carousel specifies `width` or `height`, the preview uses one quarter of the specified stage size.
+* If neither dimension is specified, the preview uses one quarter of the current carousel stage size.
+
+The image is scaled with `object-fit: contain`, so it keeps its aspect ratio and is never distorted.
+This feature is always available when indicators are shown.
+
 == Usage
 
 === CLI

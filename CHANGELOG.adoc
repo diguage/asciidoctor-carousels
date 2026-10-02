@@ -2,6 +2,16 @@
 
 This document provides a summary of notable changes to the Asciidoctor Carousels project by release.
 
+== 0.1.0.alpha.4
+
+* Add a hover-triggered popup that previews the slide associated with an indicator.
+* Add example links and a combined all-in-one example document.
+* Add Asciidoctor Diagram examples and adjust the advanced example height.
+* Add a GitHub Pages workflow for publishing the generated examples.
+* Add a Ruby compatibility testing workflow across CRuby, JRuby, and TruffleRuby.
+* Add a gem release script and release workflow.
+* Correct author information in the gem metadata.
+
 == 0.1.0.alpha.3
 
 * Generate linked carousel CSS and JavaScript assets when `linkcss` is enabled.
