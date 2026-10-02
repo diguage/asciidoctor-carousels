@@ -1,5 +1,0 @@
-@startuml
-actor User
-User -> Web: request
-Web --> User: response
-@enduml

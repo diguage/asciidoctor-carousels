@@ -23,24 +23,13 @@ jobs:
           ruby-version: '3.4'
           bundler: none
 
-      # https://github.com/actions/setup-java
-      - name: Set up JDK ☕️
-        uses: actions/setup-java@v6
-        with:
-          distribution: 'temurin'
-          java-version: '25'
-          # java-version: 'latest'
-          # distribution: 'corretto'
-          # java-version: '26'
-          # cache: 'maven'
-
       - name: Install build dependencies
-        run: gem install asciidoctor asciidoctor-diagram asciidoctor-diagram-plantuml
+        run: gem install asciidoctor asciidoctor-diagram asciidoctor-kroki
 
       - name: Build examples
         run: >-
-          asciidoctor -I lib -r asciidoctor-carousels -r asciidoctor-diagram
-          -a linkcss -a stylesdir=assets/styles
+          asciidoctor -I lib -r asciidoctor-carousels -r asciidoctor-diagram -r asciidoctor-kroki
+          -a linkcss -a stylesdir=assets/styles -a kroki-fetch-diagram=true
           -o examples/index.html examples/all.adoc
 
       # https://github.com/JamesIves/github-pages-deploy-action
