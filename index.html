@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.26">
+<title>All Examples</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+<link rel="stylesheet" href="assets/styles/asciidoctor.css">
+<link rel="stylesheet" href="assets/styles/asciidoctor-carousels.css">
+</head>
+<body class="article">
+<div id="header">
+<h1>All Examples</h1>
+<div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_basic_carousel">1. Basic Carousel</a></li>
+<li><a href="#_height_carousel">2. Height Carousel</a></li>
+<li><a href="#_width_carousel">3. Width Carousel</a></li>
+<li><a href="#_aligned_carousel">4. Aligned Carousel</a></li>
+<li><a href="#_advanced_carousel">5. Advanced Carousel</a></li>
+<li><a href="#_carousel_with_diagrams">6. Carousel with Diagrams</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_basic_carousel">1. Basic Carousel</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The images for this example are stored in the <code>images</code> directory.</p>
+</div>
+<div id="_carousel_1" class="openblock carousel is-loading carousel-align-center">
+<div class="content">
+<div class="carousel-stage carousel-stage-align-center" data-interval="5000" data-active-slide="1" data-autoplay="false" data-loop="true" data-keyboard="true" data-touch="true" data-pause-on-hover="false">
+<div class="carousel-track">
+<div id="_carousel_1_slide-1" class="carousel-slide is-active" aria-hidden="false">
+<div class="carousel-slide-caption">Asciidoctor color logo</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/logo-fill-color.svg" alt="Asciidoctor color logo">
+</div>
+</div>
+</div>
+<div id="_carousel_1_slide-2" class="carousel-slide is-hidden" aria-hidden="true">
+<div class="carousel-slide-caption">Asciidoctor square color logo</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/logo-fill-square-color.svg" alt="Asciidoctor square color logo">
+</div>
+</div>
+</div>
+<div id="_carousel_1_slide-3" class="carousel-slide is-hidden" aria-hidden="true">
+<div class="carousel-slide-caption">Asciidoctor outline logo</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/logo-outline-color.svg" alt="Asciidoctor outline logo">
+</div>
+</div>
+</div>
+</div>
+<button type="button" class="carousel-control carousel-control-prev" data-carousel-action="prev" aria-controls="_carousel_1" aria-label="Previous slide"><span class="carousel-control-icon">&#8249;</span></button>
+<button type="button" class="carousel-control carousel-control-next" data-carousel-action="next" aria-controls="_carousel_1" aria-label="Next slide"><span class="carousel-control-icon">&#8250;</span></button>
+<div class="carousel-indicators" role="tablist">
+<button type="button" class="carousel-indicator is-active" data-carousel-action="go" data-carousel-index="0" aria-label="Go to slide 1"><span>1</span></button>
+<button type="button" class="carousel-indicator" data-carousel-action="go" data-carousel-index="1" aria-label="Go to slide 2"><span>2</span></button>
+<button type="button" class="carousel-indicator" data-carousel-action="go" data-carousel-index="2" aria-label="Go to slide 3"><span>3</span></button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_height_carousel">2. Height Carousel</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The height of this carousel is limited to <code>32rem</code>.</p>
+</div>
+<div id="_carousel_2" class="openblock carousel is-loading carousel-align-center">
+<div class="content">
+<div class="carousel-stage carousel-stage-align-center" data-interval="5000" data-active-slide="1" data-autoplay="false" data-loop="true" data-keyboard="true" data-touch="true" data-pause-on-hover="false" style="--carousel-height: 32rem">
+<div class="carousel-track">
+<div id="_carousel_2_slide-1" class="carousel-slide is-active" aria-hidden="false">
+<div class="carousel-slide-caption">Asciidoctor color logo</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/logo-fill-color.svg" alt="Asciidoctor color logo">
+</div>
+</div>
+</div>
+<div id="_carousel_2_slide-2" class="carousel-slide is-hidden" aria-hidden="true">
+<div class="carousel-slide-caption">Asciidoctor square color logo</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/logo-fill-square-color.svg" alt="Asciidoctor square color logo">
+</div>
+</div>
+</div>
+<div id="_carousel_2_slide-3" class="carousel-slide is-hidden" aria-hidden="true">
+<div class="carousel-slide-caption">Asciidoctor outline logo</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/logo-outline-color.svg" alt="Asciidoctor outline logo">
+</div>
+</div>
+</div>
+<div id="_carousel_2_slide-4" class="carousel-slide is-hidden" aria-hidden="true">
+<div class="carousel-slide-caption">Black and white</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/logo-fill-bw.svg" alt="Asciidoctor black and white logo">
+</div>
+</div>
+</div>
+</div>
+<button type="button" class="carousel-control carousel-control-prev" data-carousel-action="prev" aria-controls="_carousel_2" aria-label="Previous slide"><span class="carousel-control-icon">&#8249;</span></button>
+<button type="button" class="carousel-control carousel-control-next" data-carousel-action="next" aria-controls="_carousel_2" aria-label="Next slide"><span class="carousel-control-icon">&#8250;</span></button>
+<div class="carousel-indicators" role="tablist">
+<button type="button" class="carousel-indicator is-active" data-carousel-action="go" data-carousel-index="0" aria-label="Go to slide 1"><span>1</span></button>
+<button type="button" class="carousel-indicator" data-carousel-action="go" data-carousel-index="1" aria-label="Go to slide 2"><span>2</span></button>
+<button type="button" class="carousel-indicator" data-carousel-action="go" data-carousel-index="2" aria-label="Go to slide 3"><span>3</span></button>
+<button type="button" class="carousel-indicator" data-carousel-action="go" data-carousel-index="3" aria-label="Go to slide 4"><span>4</span></button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_width_carousel">3. Width Carousel</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The width of this carousel is limited to <code>32rem</code>.</p>
+</div>
+<div id="_carousel_3" class="openblock carousel is-loading carousel-align-center">
+<div class="content">
+<div class="carousel-stage carousel-stage-align-center" data-interval="5000" data-active-slide="1" data-autoplay="false" data-loop="true" data-keyboard="true" data-touch="true" data-pause-on-hover="false" style="--carousel-width: 32rem">
+<div class="carousel-track">
+<div id="_carousel_3_slide-1" class="carousel-slide is-active" aria-hidden="false">
+<div class="carousel-slide-caption">Asciidoctor color logo</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/logo-fill-color.svg" alt="Asciidoctor color logo">
+</div>
+</div>
+</div>
+<div id="_carousel_3_slide-2" class="carousel-slide is-hidden" aria-hidden="true">
+<div class="carousel-slide-caption">Asciidoctor square color logo</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/logo-fill-square-color.svg" alt="Asciidoctor square color logo">
+</div>
+</div>
+</div>
+<div id="_carousel_3_slide-3" class="carousel-slide is-hidden" aria-hidden="true">
+<div class="carousel-slide-caption">Asciidoctor outline logo</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/logo-outline-color.svg" alt="Asciidoctor outline logo">
+</div>
+</div>
+</div>
+<div id="_carousel_3_slide-4" class="carousel-slide is-hidden" aria-hidden="true">
+<div class="carousel-slide-caption">Black and white</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/logo-fill-bw.svg" alt="Asciidoctor black and white logo">
+</div>
+</div>
+</div>
+</div>
+<button type="button" class="carousel-control carousel-control-prev" data-carousel-action="prev" aria-controls="_carousel_3" aria-label="Previous slide"><span class="carousel-control-icon">&#8249;</span></button>
+<button type="button" class="carousel-control carousel-control-next" data-carousel-action="next" aria-controls="_carousel_3" aria-label="Next slide"><span class="carousel-control-icon">&#8250;</span></button>
+<div class="carousel-indicators" role="tablist">
+<button type="button" class="carousel-indicator is-active" data-carousel-action="go" data-carousel-index="0" aria-label="Go to slide 1"><span>1</span></button>
+<button type="button" class="carousel-indicator" data-carousel-action="go" data-carousel-index="1" aria-label="Go to slide 2"><span>2</span></button>
+<button type="button" class="carousel-indicator" data-carousel-action="go" data-carousel-index="2" aria-label="Go to slide 3"><span>3</span></button>
+<button type="button" class="carousel-indicator" data-carousel-action="go" data-carousel-index="3" aria-label="Go to slide 4"><span>4</span></button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_aligned_carousel">4. Aligned Carousel</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <code>align</code> attribute positions the stage to the left, right, or center. With <code>align=left</code> or <code>align=right</code>, the carousel floats so following content can fill the opposite side. The default is <code>center</code>.</p>
+</div>
+<div id="_carousel_4" class="openblock carousel is-loading carousel-align-left">
+<div class="title">align=left</div>
+<div class="content">
+<div class="carousel-stage carousel-stage-align-left" data-interval="5000" data-active-slide="1" data-autoplay="false" data-loop="true" data-keyboard="true" data-touch="true" data-pause-on-hover="false" style="--carousel-width: 32rem">
+<div class="carousel-track">
+<div id="_carousel_4_slide-1" class="carousel-slide is-active" aria-hidden="false">
+<div class="carousel-slide-caption">Asciidoctor color logo</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/logo-fill-color.svg" alt="Asciidoctor color logo">
+</div>
+</div>
+</div>
+<div id="_carousel_4_slide-2" class="carousel-slide is-hidden" aria-hidden="true">
+<div class="carousel-slide-caption">Asciidoctor square color logo</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/logo-fill-square-color.svg" alt="Asciidoctor square color logo">
+</div>
+</div>
+</div>
+<div id="_carousel_4_slide-3" class="carousel-slide is-hidden" aria-hidden="true">
+<div class="carousel-slide-caption">Asciidoctor outline logo</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/logo-outline-color.svg" alt="Asciidoctor outline logo">
+</div>
+</div>
+</div>
+</div>
+<button type="button" class="carousel-control carousel-control-prev" data-carousel-action="prev" aria-controls="_carousel_4" aria-label="Previous slide"><span class="carousel-control-icon">&#8249;</span></button>
+<button type="button" class="carousel-control carousel-control-next" data-carousel-action="next" aria-controls="_carousel_4" aria-label="Next slide"><span class="carousel-control-icon">&#8250;</span></button>
+<div class="carousel-indicators" role="tablist">
+<button type="button" class="carousel-indicator is-active" data-carousel-action="go" data-carousel-index="0" aria-label="Go to slide 1"><span>1</span></button>
+<button type="button" class="carousel-indicator" data-carousel-action="go" data-carousel-index="1" aria-label="Go to slide 2"><span>2</span></button>
+<button type="button" class="carousel-indicator" data-carousel-action="go" data-carousel-index="2" aria-label="Go to slide 3"><span>3</span></button>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>This paragraph follows a left-aligned carousel. It wraps into the space on the right side of the carousel instead of starting below it.</p>
+</div>
+<hr>
+<div id="_carousel_5" class="openblock carousel is-loading carousel-align-right">
+<div class="title">align=right</div>
+<div class="content">
+<div class="carousel-stage carousel-stage-align-right" data-interval="5000" data-active-slide="1" data-autoplay="false" data-loop="true" data-keyboard="true" data-touch="true" data-pause-on-hover="false" style="--carousel-width: 32rem">
+<div class="carousel-track">
+<div id="_carousel_5_slide-1" class="carousel-slide is-active" aria-hidden="false">
+<div class="carousel-slide-caption">Asciidoctor color logo</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/logo-fill-color.svg" alt="Asciidoctor color logo">
+</div>
+</div>
+</div>
+<div id="_carousel_5_slide-2" class="carousel-slide is-hidden" aria-hidden="true">
+<div class="carousel-slide-caption">Asciidoctor square color logo</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/logo-fill-square-color.svg" alt="Asciidoctor square color logo">
+</div>
+</div>
+</div>
+<div id="_carousel_5_slide-3" class="carousel-slide is-hidden" aria-hidden="true">
+<div class="carousel-slide-caption">Asciidoctor outline logo</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/logo-outline-color.svg" alt="Asciidoctor outline logo">
+</div>
+</div>
+</div>
+</div>
+<button type="button" class="carousel-control carousel-control-prev" data-carousel-action="prev" aria-controls="_carousel_5" aria-label="Previous slide"><span class="carousel-control-icon">&#8249;</span></button>
+<button type="button" class="carousel-control carousel-control-next" data-carousel-action="next" aria-controls="_carousel_5" aria-label="Next slide"><span class="carousel-control-icon">&#8250;</span></button>
+<div class="carousel-indicators" role="tablist">
+<button type="button" class="carousel-indicator is-active" data-carousel-action="go" data-carousel-index="0" aria-label="Go to slide 1"><span>1</span></button>
+<button type="button" class="carousel-indicator" data-carousel-action="go" data-carousel-index="1" aria-label="Go to slide 2"><span>2</span></button>
+<button type="button" class="carousel-indicator" data-carousel-action="go" data-carousel-index="2" aria-label="Go to slide 3"><span>3</span></button>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>This paragraph follows a right-aligned carousel. It wraps into the space on the left side of the carousel instead of starting below it.</p>
+</div>
+<hr>
+<div id="_carousel_6" class="openblock carousel is-loading carousel-align-center">
+<div class="title">align=center</div>
+<div class="content">
+<div class="carousel-stage carousel-stage-align-center" data-interval="5000" data-active-slide="1" data-autoplay="false" data-loop="true" data-keyboard="true" data-touch="true" data-pause-on-hover="false" style="--carousel-width: 32rem">
+<div class="carousel-track">
+<div id="_carousel_6_slide-1" class="carousel-slide is-active" aria-hidden="false">
+<div class="carousel-slide-caption">Asciidoctor color logo</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/logo-fill-color.svg" alt="Asciidoctor color logo">
+</div>
+</div>
+</div>
+<div id="_carousel_6_slide-2" class="carousel-slide is-hidden" aria-hidden="true">
+<div class="carousel-slide-caption">Asciidoctor square color logo</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/logo-fill-square-color.svg" alt="Asciidoctor square color logo">
+</div>
+</div>
+</div>
+<div id="_carousel_6_slide-3" class="carousel-slide is-hidden" aria-hidden="true">
+<div class="carousel-slide-caption">Asciidoctor outline logo</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/logo-outline-color.svg" alt="Asciidoctor outline logo">
+</div>
+</div>
+</div>
+</div>
+<button type="button" class="carousel-control carousel-control-prev" data-carousel-action="prev" aria-controls="_carousel_6" aria-label="Previous slide"><span class="carousel-control-icon">&#8249;</span></button>
+<button type="button" class="carousel-control carousel-control-next" data-carousel-action="next" aria-controls="_carousel_6" aria-label="Next slide"><span class="carousel-control-icon">&#8250;</span></button>
+<div class="carousel-indicators" role="tablist">
+<button type="button" class="carousel-indicator is-active" data-carousel-action="go" data-carousel-index="0" aria-label="Go to slide 1"><span>1</span></button>
+<button type="button" class="carousel-indicator" data-carousel-action="go" data-carousel-index="1" aria-label="Go to slide 2"><span>2</span></button>
+<button type="button" class="carousel-indicator" data-carousel-action="go" data-carousel-index="2" aria-label="Go to slide 3"><span>3</span></button>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>A centered carousel stays in the normal document flow, so this paragraph starts below it.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_advanced_carousel">5. Advanced Carousel</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This carousel enables autoplay, looping, a fade transition, pause-on-hover, and a fixed stage height(height=32rem).</p>
+</div>
+<div id="brand-tour" class="openblock carousel is-loading is-fade carousel-align-center">
+<div class="content">
+<div class="carousel-stage carousel-stage-align-center" data-interval="2500" data-active-slide="1" data-autoplay="true" data-loop="true" data-keyboard="true" data-touch="true" data-pause-on-hover="true" style="--carousel-height: 32rem">
+<div class="carousel-track">
+<div id="brand-tour_slide-1" class="carousel-slide is-active" aria-hidden="false">
+<div class="imageblock">
+<div class="content">
+<img src="images/logo-fill-color.svg" alt="Asciidoctor color logo">
+</div>
+</div>
+</div>
+<div id="brand-tour_slide-2" class="carousel-slide is-hidden" aria-hidden="true">
+<div class="carousel-slide-caption">Square</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/logo-fill-square-color.svg" alt="Asciidoctor square color logo">
+</div>
+</div>
+</div>
+<div id="brand-tour_slide-3" class="carousel-slide is-hidden" aria-hidden="true">
+<div class="carousel-slide-caption">Outline</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/logo-outline-color.svg" alt="Asciidoctor outline logo">
+</div>
+</div>
+</div>
+<div id="brand-tour_slide-4" class="carousel-slide is-hidden" aria-hidden="true">
+<div class="carousel-slide-caption">Black and white</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/logo-fill-bw.svg" alt="Asciidoctor black and white logo">
+</div>
+</div>
+</div>
+</div>
+<button type="button" class="carousel-control carousel-control-prev" data-carousel-action="prev" aria-controls="brand-tour" aria-label="Previous slide"><span class="carousel-control-icon">&#8249;</span></button>
+<button type="button" class="carousel-control carousel-control-next" data-carousel-action="next" aria-controls="brand-tour" aria-label="Next slide"><span class="carousel-control-icon">&#8250;</span></button>
+<div class="carousel-indicators" role="tablist">
+<button type="button" class="carousel-indicator is-active" data-carousel-action="go" data-carousel-index="0" aria-label="Go to slide 1"><span>1</span></button>
+<button type="button" class="carousel-indicator" data-carousel-action="go" data-carousel-index="1" aria-label="Go to slide 2"><span>2</span></button>
+<button type="button" class="carousel-indicator" data-carousel-action="go" data-carousel-index="2" aria-label="Go to slide 3"><span>3</span></button>
+<button type="button" class="carousel-indicator" data-carousel-action="go" data-carousel-index="3" aria-label="Go to slide 4"><span>4</span></button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_carousel_with_diagrams">6. Carousel with Diagrams</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This example requires Asciidoctor Diagram.</p>
+</div>
+<div id="_carousel_8" class="openblock carousel is-loading carousel-align-center">
+<div class="content">
+<div class="carousel-stage carousel-stage-align-center" data-interval="5000" data-active-slide="1" data-autoplay="false" data-loop="true" data-keyboard="true" data-touch="true" data-pause-on-hover="false" style="--carousel-height: 32rem">
+<div class="carousel-track">
+<div id="_carousel_8_slide-1" class="carousel-slide is-active" aria-hidden="false">
+<div class="carousel-slide-caption">Flow diagram</div>
+<div class="imageblock kroki">
+<div class="content">
+<img src="images/flow.svg" alt="Flow diagram">
+</div>
+</div>
+</div>
+<div id="_carousel_8_slide-2" class="carousel-slide is-hidden" aria-hidden="true">
+<div class="carousel-slide-caption">Sequence diagram</div>
+<div class="imageblock kroki">
+<div class="content">
+<img src="images/diag-0c754230abf7cda3dd24984ab022f820e0165f0d0cb59e86ab6fdcb07cc72765.svg" alt="Sequence diagram">
+</div>
+</div>
+</div>
+<div id="_carousel_8_slide-3" class="carousel-slide is-hidden" aria-hidden="true">
+<div class="carousel-slide-caption">Bytefield diagram</div>
+<div class="imageblock kroki">
+<div class="content">
+<img src="images/diag-5094ca03fbe5af4410c2a20fa08a89ea31215353479462b552b3dbefd5efdcc5.svg" alt="Bytefield diagram">
+</div>
+</div>
+</div>
+<div id="_carousel_8_slide-4" class="carousel-slide is-hidden" aria-hidden="true">
+<div class="carousel-slide-caption">Mermaid diagram</div>
+<div class="imageblock kroki">
+<div class="content">
+<img src="images/diag-30d5c63ea32442a60b0e6d2adc4b51609599dfbc488d0d7dd02ca3d9c1aca4a9.svg" alt="Mermaid diagram">
+</div>
+</div>
+</div>
+<div id="_carousel_8_slide-5" class="carousel-slide is-hidden" aria-hidden="true">
+<div class="carousel-slide-caption">Svgbob diagram</div>
+<div class="imageblock kroki">
+<div class="content">
+<img src="images/diag-8aa76b1af595649fc42b1dba6f5cf20ec735c1f3582dc46f30714bf46ce74e1d.svg" alt="Svgbob diagram">
+</div>
+</div>
+</div>
+<div id="_carousel_8_slide-6" class="carousel-slide is-hidden" aria-hidden="true">
+<div class="carousel-slide-caption">TikZ diagram</div>
+<div class="imageblock kroki">
+<div class="content">
+<img src="images/diag-bdf6b9713c1e7815039b8eed8d3e25ffc4930190d1ace931f20e3e6120344b7c.svg" alt="TikZ diagram">
+</div>
+</div>
+</div>
+</div>
+<button type="button" class="carousel-control carousel-control-prev" data-carousel-action="prev" aria-controls="_carousel_8" aria-label="Previous slide"><span class="carousel-control-icon">&#8249;</span></button>
+<button type="button" class="carousel-control carousel-control-next" data-carousel-action="next" aria-controls="_carousel_8" aria-label="Next slide"><span class="carousel-control-icon">&#8250;</span></button>
+<div class="carousel-indicators" role="tablist">
+<button type="button" class="carousel-indicator is-active" data-carousel-action="go" data-carousel-index="0" aria-label="Go to slide 1"><span>1</span></button>
+<button type="button" class="carousel-indicator" data-carousel-action="go" data-carousel-index="1" aria-label="Go to slide 2"><span>2</span></button>
+<button type="button" class="carousel-indicator" data-carousel-action="go" data-carousel-index="2" aria-label="Go to slide 3"><span>3</span></button>
+<button type="button" class="carousel-indicator" data-carousel-action="go" data-carousel-index="3" aria-label="Go to slide 4"><span>4</span></button>
+<button type="button" class="carousel-indicator" data-carousel-action="go" data-carousel-index="4" aria-label="Go to slide 5"><span>5</span></button>
+<button type="button" class="carousel-indicator" data-carousel-action="go" data-carousel-index="5" aria-label="Go to slide 6"><span>6</span></button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2026-10-03 12:05:53 UTC
+</div>
+</div>
+<script src="assets/scripts/asciidoctor-carousels.js"></script>
+</body>
+</html>
