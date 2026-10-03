@@ -29,6 +29,9 @@
       var pauseOnHover = config.pauseOnHover === 'true'
       var isFade = carousel.classList.contains('is-fade')
       var timer
+      // resumeOnPointerLeave marks autoplay that was paused by an indicator
+      // click and should restart when the pointer leaves the carousel.
+      var resumeOnPointerLeave = false
       // progress is a value between 0 and 1 used to fill the active indicator.
       var progress = 0
       // lastTick stores the timestamp of the previous autoplay animation frame.
@@ -134,11 +137,13 @@
         progress = 1
         updateIndicatorProgress(progress)
         setPaused(autoplay)
+        resumeOnPointerLeave = autoplay
       }
 
       // Starts or restarts autoplay and resets the indicator progress to zero.
       function start () {
         if (timer) stop()
+        resumeOnPointerLeave = false
         setPaused(false)
         progress = 0
         lastTick = undefined
@@ -180,6 +185,12 @@
         })
         indicator.addEventListener('mouseenter', function () { showPreview(indicator) })
         indicator.addEventListener('mouseleave', hidePreview)
+      })
+
+      // Resume autoplay after an indicator click once the pointer leaves the
+      // carousel, regardless of whether pause-on-hover is enabled.
+      carousel.addEventListener('mouseleave', function () {
+        if (autoplay && resumeOnPointerLeave) start()
       })
 
       // Support left and right arrow keys when the carousel has keyboard focus.
