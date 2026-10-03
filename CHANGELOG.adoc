@@ -2,6 +2,10 @@
 
 This document provides a summary of notable changes to the Asciidoctor Carousels project by release.
 
+== 0.1.0.alpha.5 (2026-10-03) - @diguage
+
+_No changes since previous release._
+
 == 0.1.0.alpha.4 (2026-10-02) - @diguage
 
 * Add a hover-triggered popup that previews the slide associated with an indicator.
