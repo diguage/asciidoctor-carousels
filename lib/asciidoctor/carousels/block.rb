@@ -145,7 +145,8 @@ module Asciidoctor
         glyph = direction == 'prev' ? '&#8249;' : '&#8250;'
         %(<button type="button" class="carousel-control carousel-control-#{direction}") +
           %( data-carousel-action="#{direction}") +
-          %( aria-controls="#{escape_attr carousel_id}" aria-label="#{label}">#{glyph}</button>)
+          %( aria-controls="#{escape_attr carousel_id}" aria-label="#{label}">) +
+          %(<span class="carousel-control-icon">#{glyph}</span></button>)
       end
 
       def append_indicators carousel, parent, count, active_slide
