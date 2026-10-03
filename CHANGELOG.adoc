@@ -4,7 +4,10 @@ This document provides a summary of notable changes to the Asciidoctor Carousels
 
 == 0.1.0.alpha.5 (2026-10-03) - @diguage
 
-_No changes since previous release._
+* Implement stage `width` and centering, and apply the configured `aspect-ratio` to the stage.
+* Keep the autoplay progress fill clipped within the circular indicator.
+* Attach the hover preview to the indicators container so it stays visible when the indicator clips its progress fill.
+* Update documentation and examples for the `width` option and `linkcss` asset output.
 
 == 0.1.0.alpha.4 (2026-10-02) - @diguage
 
