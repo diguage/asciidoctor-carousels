@@ -8,6 +8,19 @@
   overflow: hidden;
   background-color: #fff;
   border: 1px solid #dcdcdc;
+  max-width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.carousel-stage[style*='--carousel-width'] {
+  width: var(--carousel-width);
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.carousel-stage[style*='--carousel-aspect-ratio']:not([style*='--carousel-height']) {
+  aspect-ratio: var(--carousel-aspect-ratio);
 }
 
 .carousel-track {

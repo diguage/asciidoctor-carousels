@@ -1,12 +1,13 @@
 = All Examples
+:sectnums:
+:toc:
 :imagesdir: images
 
 == Basic Carousel
 
-
 The images for this example are stored in the `images` directory.
 
-[carousel,height=32rem]
+[carousel]
 ====
 .Asciidoctor color logo
 image::logo-fill-color.svg[Asciidoctor color logo]
@@ -18,10 +19,50 @@ image::logo-fill-square-color.svg[Asciidoctor square color logo]
 image::logo-outline-color.svg[Asciidoctor outline logo]
 ====
 
+== Height Carousel
+
+The height of this carousel is limited to `32rem`.
+
+[carousel,height=32rem]
+====
+.Asciidoctor color logo
+image::logo-fill-color.svg[Asciidoctor color logo]
+
+.Asciidoctor square color logo
+image::logo-fill-square-color.svg[Asciidoctor square color logo]
+
+.Asciidoctor outline logo
+image::logo-outline-color.svg[Asciidoctor outline logo]
+
+.Black and white
+image::logo-fill-bw.svg[Asciidoctor black and white logo]
+====
+
+
+== Width Carousel
+
+The width of this carousel is limited to `32rem`.
+
+[carousel,width=32rem]
+====
+.Asciidoctor color logo
+image::logo-fill-color.svg[Asciidoctor color logo]
+
+.Asciidoctor square color logo
+image::logo-fill-square-color.svg[Asciidoctor square color logo]
+
+.Asciidoctor outline logo
+image::logo-outline-color.svg[Asciidoctor outline logo]
+
+.Black and white
+image::logo-fill-bw.svg[Asciidoctor black and white logo]
+====
+
 
 
 == Advanced Carousel
 
+This carousel enables autoplay, looping, a fade transition, pause-on-hover, and a fixed stage height(height=32rem).
 
 [carousel#brand-tour%autoplay%loop%fade%pause-on-hover,interval=2500,height=32rem]
 ====
@@ -250,4 +291,3 @@ graph TD
 \end{document}
 ----
 ====
-
