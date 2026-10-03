@@ -17,7 +17,7 @@ module Asciidoctor
 
       DEFAULT_INTERVAL = '5000'
       DEFAULT_ACTIVE_SLIDE = '1'
-      STAGE_ALIGNMENTS = %w[left right center].freeze
+      STAGE_ALIGNMENTS = %w(left right center).freeze
 
       def process parent, reader, attrs
         doc = parent.document
