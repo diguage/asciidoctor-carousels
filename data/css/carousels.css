@@ -3,6 +3,16 @@
   margin-bottom: 1.25em;
 }
 
+.carousel.carousel-align-left {
+  float: left;
+  margin-right: 1rem;
+}
+
+.carousel.carousel-align-right {
+  float: right;
+  margin-left: 1rem;
+}
+
 .carousel-stage {
   position: relative;
   overflow: hidden;
@@ -15,6 +25,19 @@
 
 .carousel-stage[style*='--carousel-width'] {
   width: var(--carousel-width);
+}
+
+.carousel-stage-align-left {
+  margin-right: auto;
+  margin-left: 0;
+}
+
+.carousel-stage-align-right {
+  margin-right: 0;
+  margin-left: auto;
+}
+
+.carousel-stage-align-center {
   margin-right: auto;
   margin-left: auto;
 }

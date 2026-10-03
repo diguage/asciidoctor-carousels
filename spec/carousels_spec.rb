@@ -88,7 +88,7 @@ describe Asciidoctor::Carousels do
 
     it 'should convert image blocks into a carousel' do
       actual = Asciidoctor.convert basic_carousel
-      (expect actual).to include 'class="openblock carousel is-loading"'
+      (expect actual).to include 'class="openblock carousel is-loading carousel-align-center"'
       (expect actual).to include 'class="carousel-slide is-active"'
       (expect actual).to include 'class="imageblock"'
       (expect actual).to include 'class="carousel-slide-caption"'
@@ -107,7 +107,7 @@ describe Asciidoctor::Carousels do
 
       actual = Asciidoctor.convert input
       (expect actual).to include 'id="tour"'
-      (expect actual).to include 'class="openblock carousel hero is-loading"'
+      (expect actual).to include 'class="openblock carousel hero is-loading carousel-align-center"'
       (expect actual).to include '<div class="title">Brand tour</div>'
     end
 
@@ -121,10 +121,23 @@ describe Asciidoctor::Carousels do
       END
 
       actual = Asciidoctor.convert input
-      (expect actual).to include 'class="openblock carousel is-loading"'
+      (expect actual).to include 'class="openblock carousel is-loading carousel-align-center"'
       (expect actual).to include 'class="paragraph"'
       (expect actual).to include '<img src="a.jpg"'
       (expect actual).to include 'class="carousel-slide-caption"'
+    end
+
+    it 'should apply stage alignment classes' do
+      input = <<~'END'
+      [carousel,width=32rem,align=right]
+      ====
+      image::a.jpg[First]
+      ====
+      END
+
+      actual = Asciidoctor.convert input
+      (expect actual).to include 'class="openblock carousel is-loading carousel-align-right"'
+      (expect actual).to include 'class="carousel-stage carousel-stage-align-right"'
     end
 
     it 'should leave a carousel unprocessed for a non-HTML backend' do

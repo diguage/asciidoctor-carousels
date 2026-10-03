@@ -17,6 +17,7 @@ module Asciidoctor
 
       DEFAULT_INTERVAL = '5000'
       DEFAULT_ACTIVE_SLIDE = '1'
+      STAGE_ALIGNMENTS = %w[left right center].freeze
 
       def process parent, reader, attrs
         doc = parent.document
@@ -34,7 +35,8 @@ module Asciidoctor
         carousel.title = attrs['title']
 
         active_slide = active_slide_index attrs
-        carousel << (create_html_fragment parent, %(<div class="carousel-stage"#{stage_attributes attrs}>))
+        stage_class = %(carousel-stage carousel-stage-align-#{stage_align attrs})
+        carousel << (create_html_fragment parent, %(<div class="#{stage_class}"#{stage_attributes attrs}>))
         carousel << (create_html_fragment parent, %(<div class="carousel-track">))
 
         children.each_with_index do |child, idx|
@@ -92,6 +94,7 @@ module Asciidoctor
         role = ['carousel', attrs['role']].compact
         role << 'is-loading'
         role << 'is-fade' if option_enabled? attrs, 'fade'
+        role << %(carousel-align-#{stage_align attrs})
         attributes = { 'id' => carousel_id, 'role' => role.join(' ') }
         attributes[:attribute_entries] = attrs[:attribute_entries] if attrs.key? :attribute_entries
         attributes
@@ -112,6 +115,11 @@ module Asciidoctor
         style << %(--carousel-width: #{attrs['width']}) if attrs['width']
         style << %(--carousel-aspect-ratio: #{attrs['aspect-ratio']}) if attrs['aspect-ratio']
         %( #{pairs.join ' '}#{style.empty? ? '' : %( style="#{escape_attr style.join '; '}")})
+      end
+
+      def stage_align attrs
+        align = attrs['align']
+        STAGE_ALIGNMENTS.include?(align) ? align : 'center'
       end
 
       def active_slide_index attrs

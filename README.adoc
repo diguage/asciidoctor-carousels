@@ -166,6 +166,9 @@ image::images/c.jpg[Third]
 
 |`aspect-ratio`
 |Optional stage aspect-ratio hint (e.g., `16/9`).
+
+|`align`
+|Stage alignment within its container: `left`, `right`, or `center`. Left and right float the carousel so following content can fill the opposite side. Defaults to `center`.
 |===
 
 === Behavior options
