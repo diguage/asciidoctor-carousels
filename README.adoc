@@ -10,8 +10,9 @@ endif::[]
 An Asciidoctor extension that adds a carousel block to AsciiDoc.
 It turns a sequence of images into a responsive, accessible image carousel (or slideshow).
 
-Example: https://diguage.github.io/asciidoctor-carousels/[https://diguage.github.io/asciidoctor-carousels/^]
+*Example*: https://diguage.github.io/asciidoctor-carousels/[https://diguage.github.io/asciidoctor-carousels^]
 
+*Gem*: https://rubygems.org/gems/asciidoctor-carousels/[https://rubygems.org/gems/asciidoctor-carousels^]
 
 
 NOTE: This extension is intended for HTML backends (e.g., `html5`).
