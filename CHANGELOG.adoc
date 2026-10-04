@@ -2,6 +2,15 @@
 
 This document provides a summary of notable changes to the Asciidoctor Carousels project by release.
 
+== 0.1.0.alpha.6 (2026-10-04) - @diguage
+
+* Fix RuboCop percent literal delimiter style
+* Resume autoplay after indicator click when pointer leaves
+* Add configurable carousel alignment with floating support
+* Enlarge carousel control arrows and center them
+* Add gem link
+* Generate CHANGELOG from git history in release workflow
+
 == 0.1.0.alpha.5 (2026-10-03) - @diguage
 
 * Implement stage `width` and centering, and apply the configured `aspect-ratio` to the stage.
