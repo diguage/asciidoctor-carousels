@@ -2,6 +2,17 @@
 
 This document provides a summary of notable changes to the Asciidoctor Carousels project by release.
 
+== 0.1.0 (2026-10-05) - @diguage
+
+* Build the examples page with Asciidoctor Kroki alone
+* Grow the Ken Burns slide into place instead of cropping it
+* Shorten the default autoplay interval to 3 seconds
+* Split the aligned example into sections
+* Resolve diagram file targets for Asciidoctor Kroki
+* Keep the coverflow wings clear of the active slide
+* Add selectable transition effects and reorganize the examples
+* Add example images.
+
 == 0.1.0.alpha.6 (2026-10-04) - @diguage
 
 * Fix RuboCop percent literal delimiter style
