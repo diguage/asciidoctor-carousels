@@ -323,8 +323,12 @@
   transform: rotateY(0deg);
 }
 
-/* Coverflow: the neighbours stay visible, turned and pushed back so the active
-   slide stands out in the middle of the stage. */
+/* Coverflow: the slides are inset so the two wings can stand beside the active
+   slide instead of on top of it. A wing turns its centre-facing edge towards
+   the reader and lets the outer edge recede, and the perspective magnifies
+   that near edge, so the offsets below are solved to land it just outside the
+   active slide at any stage width. That is also why the slide on screen no
+   longer fills the stage. */
 .carousel.carousel-transition-coverflow .carousel-stage {
   perspective: 1400px;
 }
@@ -335,6 +339,9 @@
 
 .carousel.carousel-transition-coverflow .carousel-slide {
   backface-visibility: hidden;
+  /* The pose the active slide keeps. The wings below repeat the same three
+     functions, so the slides interpolate function by function. */
+  transform: translateX(0) rotateY(0deg) scale(0.72);
   transition: transform 450ms ease-in-out, opacity 450ms ease-in-out;
 }
 
@@ -344,11 +351,11 @@
 }
 
 .carousel.carousel-transition-coverflow .carousel-slide.is-prev {
-  transform: translateX(-58%) rotateY(-38deg) scale(0.72);
+  transform: translateX(-76%) rotateY(-35deg) scale(0.72);
 }
 
 .carousel.carousel-transition-coverflow .carousel-slide.is-next {
-  transform: translateX(58%) rotateY(38deg) scale(0.72);
+  transform: translateX(76%) rotateY(35deg) scale(0.72);
 }
 
 /* Cards: the neighbours sit behind the active slide like the rest of a deck. */

@@ -120,7 +120,7 @@ image::logo-fill-bw.svg[Asciidoctor black and white logo]
 
 == Coverflow
 
-The neighbouring slides are turned and pushed back.
+The active slide is set back from the edges so the neighbouring slides can stand beside it, turned towards the middle.
 
 [carousel,fade=coverflow,width=32rem]
 ====
