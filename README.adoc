@@ -131,6 +131,9 @@ plantuml:diagrams/overview.puml[format=svg]
 Diagram attributes such as `target`, `format`, `server-url`, and `svg-type` are passed through to Asciidoctor Diagram unchanged.
 If a diagram outputs a text format (e.g., `txt`), the carousel falls back to a normal example block.
 
+NOTE: Asciidoctor Kroki reads a diagram file target relative to the working directory and ignores `imagesdir`, so a file-based macro needs an absolute path when you load that extension, for example `plantuml::{docdir}/diagrams/sequence.puml[format=svg,target=sequence]`.
+Asciidoctor Diagram resolves the same target relative to the document, so `plantuml::diagrams/sequence.puml[format=svg]` is enough there.
+
 == Options
 
 Options and named attributes are assigned on the carousel block using standard AsciiDoc block attribute syntax.

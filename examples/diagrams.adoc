@@ -13,7 +13,9 @@ Alice -> Bob: hello
 ....
 
 .Sequence diagram
-plantuml::diagrams/sequence.puml[format=svg]
+// Asciidoctor Kroki reads a diagram file target relative to the working
+// directory, so the path is spelled absolute through docdir.
+plantuml::{docdir}/diagrams/sequence.puml[format=svg,target=sequence]
 
 .Bytefield diagram
 [bytefield,format=svg]

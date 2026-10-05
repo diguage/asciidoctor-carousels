@@ -62,6 +62,9 @@ Convert all examples at once:
 
  $ asciidoctor -I lib -r asciidoctor-carousels -r asciidoctor-diagram -r asciidoctor-kroki -o examples/index.html examples/index.adoc
 
+Asciidoctor Kroki reads a diagram file target relative to the working directory and ignores `imagesdir`, so [.path]_diagrams.adoc_ spells the PlantUML include absolute through `{docdir}`.
+Asciidoctor Diagram resolves the same target relative to the document, so the path works with either extension.
+
 Diagram generation writes images next to the document and stores metadata under `.asciidoctor/diagram`.
 If a diagram cannot be rendered, the carousel falls back to a normal example block so the diagram source remains visible.
 
