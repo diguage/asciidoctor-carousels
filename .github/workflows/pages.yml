@@ -24,11 +24,11 @@ jobs:
           bundler: none
 
       - name: Install build dependencies
-        run: gem install asciidoctor asciidoctor-diagram asciidoctor-kroki
+        run: gem install asciidoctor asciidoctor-kroki
 
       - name: Build examples
         run: >-
-          asciidoctor -I lib -r asciidoctor-carousels -r asciidoctor-diagram -r asciidoctor-kroki
+          asciidoctor -I lib -r asciidoctor-carousels -r asciidoctor-kroki
           -a linkcss -a stylesdir=assets/styles -a kroki-fetch-diagram=true
           -o examples/index.html examples/index.adoc
 
