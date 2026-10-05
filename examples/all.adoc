@@ -17,6 +17,9 @@ image::logo-fill-square-color.svg[Asciidoctor square color logo]
 
 .Asciidoctor outline logo
 image::logo-outline-color.svg[Asciidoctor outline logo]
+
+.Black and white
+image::logo-fill-bw.svg[Asciidoctor black and white logo]
 ====
 
 == Height Carousel
@@ -74,6 +77,9 @@ image::logo-fill-square-color.svg[Asciidoctor square color logo]
 
 .Asciidoctor outline logo
 image::logo-outline-color.svg[Asciidoctor outline logo]
+
+.Black and white
+image::logo-fill-bw.svg[Asciidoctor black and white logo]
 ====
 
 This paragraph follows a left-aligned carousel. It wraps into the space on the right side of the carousel instead of starting below it.
@@ -91,6 +97,9 @@ image::logo-fill-square-color.svg[Asciidoctor square color logo]
 
 .Asciidoctor outline logo
 image::logo-outline-color.svg[Asciidoctor outline logo]
+
+.Black and white
+image::logo-fill-bw.svg[Asciidoctor black and white logo]
 ====
 
 This paragraph follows a right-aligned carousel. It wraps into the space on the left side of the carousel instead of starting below it.
@@ -108,6 +117,9 @@ image::logo-fill-square-color.svg[Asciidoctor square color logo]
 
 .Asciidoctor outline logo
 image::logo-outline-color.svg[Asciidoctor outline logo]
+
+.Black and white
+image::logo-fill-bw.svg[Asciidoctor black and white logo]
 ====
 
 A centered carousel stays in the normal document flow, so this paragraph starts below it.
