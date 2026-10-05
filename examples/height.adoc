@@ -1,9 +1,9 @@
-= Basic Carousel
+= Height Carousel
 :imagesdir: images
 
-The images for this example are stored in the `images` directory.
+The height of this carousel is limited to `32rem`.
 
-[carousel]
+[carousel,height=32rem]
 ====
 .Asciidoctor color logo
 image::logo-fill-color.svg[Asciidoctor color logo]

@@ -88,7 +88,8 @@ describe Asciidoctor::Carousels do
 
     it 'should convert image blocks into a carousel' do
       actual = Asciidoctor.convert basic_carousel
-      (expect actual).to include 'class="openblock carousel is-loading carousel-align-center"'
+      (expect actual).to include 'class="openblock carousel is-loading carousel-transition-slide carousel-align-center"'
+      (expect actual).to include 'data-transition="slide"'
       (expect actual).to include 'class="carousel-slide is-active"'
       (expect actual).to include 'class="imageblock"'
       (expect actual).to include 'class="carousel-slide-caption"'
@@ -107,7 +108,8 @@ describe Asciidoctor::Carousels do
 
       actual = Asciidoctor.convert input
       (expect actual).to include 'id="tour"'
-      (expect actual).to include 'class="openblock carousel hero is-loading carousel-align-center"'
+      (expect actual).to include 'class="openblock carousel hero is-loading carousel-transition-slide ' \
+                                 'carousel-align-center"'
       (expect actual).to include '<div class="title">Brand tour</div>'
     end
 
@@ -121,7 +123,7 @@ describe Asciidoctor::Carousels do
       END
 
       actual = Asciidoctor.convert input
-      (expect actual).to include 'class="openblock carousel is-loading carousel-align-center"'
+      (expect actual).to include 'class="openblock carousel is-loading carousel-transition-slide carousel-align-center"'
       (expect actual).to include 'class="paragraph"'
       (expect actual).to include '<img src="a.jpg"'
       (expect actual).to include 'class="carousel-slide-caption"'
@@ -136,8 +138,98 @@ describe Asciidoctor::Carousels do
       END
 
       actual = Asciidoctor.convert input
-      (expect actual).to include 'class="openblock carousel is-loading carousel-align-right"'
+      (expect actual).to include 'class="openblock carousel is-loading carousel-transition-slide carousel-align-right"'
       (expect actual).to include 'class="carousel-stage carousel-stage-align-right"'
+    end
+
+    it 'should accept a transition effect name in the fade attribute' do
+      input = <<~'END'
+      [carousel,fade=cube]
+      ====
+      image::a.jpg[First]
+      ====
+      END
+
+      actual = Asciidoctor.convert input
+      (expect actual).to include 'class="openblock carousel is-loading carousel-transition-cube carousel-align-center"'
+      (expect actual).to include 'data-transition="cube"'
+    end
+
+    it 'should select the crossfade when the fade attribute names it' do
+      input = <<~'END'
+      [carousel,fade=fade]
+      ====
+      image::a.jpg[First]
+      ====
+      END
+
+      actual = Asciidoctor.convert input
+      (expect actual).to include 'class="openblock carousel is-loading carousel-transition-fade carousel-align-center"'
+      (expect actual).to include 'data-transition="fade"'
+    end
+
+    it 'should ignore the superseded fade option' do
+      input = <<~'END'
+      [carousel%fade]
+      ====
+      image::a.jpg[First]
+      ====
+      END
+
+      actual = Asciidoctor.convert input
+      (expect actual).to include 'carousel-transition-slide'
+      (expect actual).not_to include 'is-fade'
+    end
+
+    it 'should fall back to the slide transition for a fade attribute without a value' do
+      input = <<~'END'
+      [carousel,fade=]
+      ====
+      image::a.jpg[First]
+      ====
+      END
+
+      actual = Asciidoctor.convert input
+      (expect actual).to include 'carousel-transition-slide'
+    end
+
+    it 'should emit every supported effect as a transition class' do
+      %w(slide fade zoom flip cube cards coverflow kenburns).each do |effect|
+        actual = Asciidoctor.convert <<~END
+        [carousel,fade=#{effect}]
+        ====
+        image::a.jpg[First]
+        ====
+        END
+
+        (expect actual).to include %(carousel-transition-#{effect})
+      end
+    end
+
+    it 'should emit every supported effect as a transition setting' do
+      %w(slide fade zoom flip cube cards coverflow kenburns).each do |effect|
+        actual = Asciidoctor.convert <<~END
+        [carousel,fade=#{effect}]
+        ====
+        image::a.jpg[First]
+        ====
+        END
+
+        (expect actual).to include %(data-transition="#{effect}")
+      end
+    end
+
+    it 'should fall back to the slide transition for an unknown effect' do
+      input = <<~'END'
+      [carousel,fade=nope]
+      ====
+      image::a.jpg[First]
+      ====
+      END
+
+      actual = Asciidoctor.convert input
+      (expect actual).to include 'carousel-transition-slide'
+      (expect actual).to include 'data-transition="slide"'
     end
 
     it 'should leave a carousel unprocessed for a non-HTML backend' do

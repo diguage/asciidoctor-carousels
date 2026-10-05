@@ -233,17 +233,23 @@
   text-shadow: 0 0 2px rgba(0, 0, 0, 0.7);
 }
 
-.carousel.is-fade .carousel-track {
+/* Every effect other than slide stacks the slides and lets each one enter on
+   its own. The active slide stays in the flow so the stage keeps its height. */
+.carousel:not(.carousel-transition-slide) .carousel-track {
   display: block;
   transition: none;
+  /* Only the cube rotates the track; promoting it to its own layer elsewhere
+     costs memory and has upset composited preserve-3d layers in the past. */
+  will-change: auto;
 }
 
-.carousel.is-fade .carousel-slide {
+.carousel:not(.carousel-transition-slide) .carousel-slide {
   position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
+  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -252,14 +258,143 @@
   transition: opacity 300ms ease-in-out;
 }
 
-.carousel.is-fade .carousel-slide.is-active {
+.carousel:not(.carousel-transition-slide) .carousel-slide.is-active {
   position: relative;
+  z-index: 2;
   opacity: 1;
   pointer-events: auto;
 }
 
-.carousel.is-fade .carousel-stage {
+.carousel:not(.carousel-transition-slide) .carousel-stage {
   height: var(--carousel-height, auto);
+}
+
+/* Fade: the slides cross-fade in place. Ken Burns shares the crossfade and
+   slowly zooms the image that is on screen. */
+.carousel.carousel-transition-kenburns .carousel-slide.is-active img {
+  animation: carousel-ken-burns 8s ease-out both;
+}
+
+@keyframes carousel-ken-burns {
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(1.12) translate(1%, -1%);
+  }
+}
+
+/* Zoom: the slide on screen settles back to its natural size while the slide
+   leaving grows towards the reader. */
+.carousel.carousel-transition-zoom .carousel-slide {
+  transform: scale(1.12);
+  transition: transform 400ms ease-out, opacity 400ms ease-out;
+}
+
+.carousel.carousel-transition-zoom .carousel-slide.is-active {
+  transform: scale(1);
+}
+
+/* Flip: each slide turns around the vertical centre line, so the neighbour on
+   either side swings in from the direction it belongs to. */
+.carousel.carousel-transition-flip .carousel-stage {
+  perspective: 1600px;
+}
+
+.carousel.carousel-transition-flip .carousel-track {
+  transform-style: preserve-3d;
+}
+
+.carousel.carousel-transition-flip .carousel-slide {
+  backface-visibility: hidden;
+  transition: transform 500ms ease-in-out, opacity 500ms ease-in-out;
+}
+
+.carousel.carousel-transition-flip .carousel-slide.is-prev {
+  transform: rotateY(90deg);
+}
+
+.carousel.carousel-transition-flip .carousel-slide.is-next {
+  transform: rotateY(-90deg);
+}
+
+.carousel.carousel-transition-flip .carousel-slide.is-active {
+  transform: rotateY(0deg);
+}
+
+/* Coverflow: the neighbours stay visible, turned and pushed back so the active
+   slide stands out in the middle of the stage. */
+.carousel.carousel-transition-coverflow .carousel-stage {
+  perspective: 1400px;
+}
+
+.carousel.carousel-transition-coverflow .carousel-track {
+  transform-style: preserve-3d;
+}
+
+.carousel.carousel-transition-coverflow .carousel-slide {
+  backface-visibility: hidden;
+  transition: transform 450ms ease-in-out, opacity 450ms ease-in-out;
+}
+
+.carousel.carousel-transition-coverflow .carousel-slide.is-prev,
+.carousel.carousel-transition-coverflow .carousel-slide.is-next {
+  opacity: 1;
+}
+
+.carousel.carousel-transition-coverflow .carousel-slide.is-prev {
+  transform: translateX(-58%) rotateY(-38deg) scale(0.72);
+}
+
+.carousel.carousel-transition-coverflow .carousel-slide.is-next {
+  transform: translateX(58%) rotateY(38deg) scale(0.72);
+}
+
+/* Cards: the neighbours sit behind the active slide like the rest of a deck. */
+.carousel.carousel-transition-cards .carousel-slide {
+  transition: transform 450ms ease-in-out, opacity 450ms ease-in-out;
+}
+
+.carousel.carousel-transition-cards .carousel-slide.is-prev,
+.carousel.carousel-transition-cards .carousel-slide.is-next {
+  opacity: 0.45;
+  transform: translateY(3%) scale(0.92);
+}
+
+.carousel.carousel-transition-cards .carousel-slide.is-prev {
+  transform: translate(-2%, 3%) scale(0.92);
+}
+
+.carousel.carousel-transition-cards .carousel-slide.is-next {
+  transform: translate(2%, 3%) scale(0.92);
+}
+
+/* Cube: the script arranges the slides on the faces of a prism and rotates the
+   track to roll it, so the faces hinge on their shared edges. */
+.carousel.carousel-transition-cube .carousel-stage {
+  perspective: 1200px;
+}
+
+.carousel.carousel-transition-cube .carousel-track {
+  transform-style: preserve-3d;
+  transition: transform 600ms ease-in-out;
+  will-change: transform;
+}
+
+.carousel.carousel-transition-cube .carousel-slide {
+  backface-visibility: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .carousel-track,
+  .carousel-slide {
+    transition-duration: 1ms !important;
+  }
+
+  .carousel.carousel-transition-kenburns .carousel-slide.is-active img {
+    animation: none;
+  }
 }
 
 .carousel-stage[style*='--carousel-height'] .carousel-slide img {

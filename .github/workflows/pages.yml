@@ -30,7 +30,7 @@ jobs:
         run: >-
           asciidoctor -I lib -r asciidoctor-carousels -r asciidoctor-diagram -r asciidoctor-kroki
           -a linkcss -a stylesdir=assets/styles -a kroki-fetch-diagram=true
-          -o examples/index.html examples/all.adoc
+          -o examples/index.html examples/index.adoc
 
       # https://github.com/JamesIves/github-pages-deploy-action
       - name: Deploy 🚀

@@ -1,0 +1,22 @@
+= All Examples
+:sectnums:
+:toc:
+:toclevels: 3
+:imagesdir: images
+
+// Each example is included in full, title and all. The leveloffset turns the
+// title of the included document into a section of this one, so the examples
+// stay complete files that can also be converted on their own.
+include::basic.adoc[leveloffset=+1]
+
+include::height.adoc[leveloffset=+1]
+
+include::width.adoc[leveloffset=+1]
+
+include::aligned.adoc[leveloffset=+1]
+
+include::advanced.adoc[leveloffset=+1]
+
+include::transitions.adoc[leveloffset=+1]
+
+include::diagrams.adoc[leveloffset=+1]

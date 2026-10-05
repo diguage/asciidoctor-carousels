@@ -27,7 +27,16 @@
       var keyboard = config.keyboard !== 'false'
       var touch = config.touch !== 'false'
       var pauseOnHover = config.pauseOnHover === 'true'
-      var isFade = carousel.classList.contains('is-fade')
+      var transition = config.transition || 'slide'
+      // The slide transition moves the track; every other effect stacks the
+      // slides and lets CSS decide how each one enters.
+      var isSlide = transition === 'slide'
+      var isCube = transition === 'cube'
+      // Direction of the most recent navigation, used to pick the side a slide
+      // enters from when both sides resolve to the same slide.
+      var lastDirection = 1
+      // Distance from the centre of the stage to a face of the cube, in pixels.
+      var cubeApothem = 0
       var timer
       // resumeOnPointerLeave marks autoplay that was paused by an indicator
       // click and should restart when the pointer leaves the carousel.
@@ -66,10 +75,54 @@
           slide.classList[active ? 'add' : 'remove']('is-active')
           slide.setAttribute('aria-hidden', active ? 'false' : 'true')
         })
-        if (!isFade) track.style.transform = 'translateX(-' + activeIndex * 100 + '%)'
+        if (isSlide) track.style.transform = 'translateX(-' + activeIndex * 100 + '%)'
+        else if (isCube) rollTo(activeIndex)
+        else updateNeighbors()
         forEach.call(carousel.querySelectorAll('.carousel-indicator'), function (indicator, idx) {
           indicator.classList[idx === activeIndex ? 'add' : 'remove']('is-active')
         })
+      }
+
+      // Marks the slides next to the active one so CSS can place them on the
+      // correct side of the stack. The ends wrap when looping; the side that
+      // does not exist is left unmarked, and a two-slide carousel uses the
+      // direction the reader navigated in for its single neighbour.
+      function updateNeighbors () {
+        var count = slides.length
+        if (count < 2) return
+        var prevIndex = loop ? (activeIndex - 1 + count) % count : activeIndex - 1
+        var nextIndex = loop ? (activeIndex + 1) % count : activeIndex + 1
+        if (prevIndex === nextIndex) {
+          if (lastDirection < 0) nextIndex = activeIndex
+          else prevIndex = activeIndex
+        }
+        slides.forEach(function (slide, idx) {
+          slide.classList[idx === prevIndex ? 'add' : 'remove']('is-prev')
+          slide.classList[idx === nextIndex ? 'add' : 'remove']('is-next')
+        })
+      }
+
+      // Rolls the cube so the requested slide faces the reader. The track holds
+      // the whole prism, so a single rotation moves every face.
+      function rollTo (index) {
+        var angle = (360 / slides.length) * index
+        track.style.transform = 'translateZ(-' + cubeApothem + 'px) rotateY(' +
+          (angle ? -angle : 0) + 'deg)'
+      }
+
+      // Lays the slides out on the faces of a regular prism whose front face is
+      // the stage. The distance to each face depends on the stage width, so it
+      // is measured again whenever the window is resized.
+      function measureCube () {
+        if (!isCube || slides.length < 2) return
+        var width = stage.clientWidth
+        if (!width) return
+        var step = 360 / slides.length
+        cubeApothem = Math.round(width / 2 / Math.tan(Math.PI / slides.length) * 100) / 100
+        slides.forEach(function (slide, idx) {
+          slide.style.transform = 'rotateY(' + (step * idx) + 'deg) translateZ(' + cubeApothem + 'px)'
+        })
+        rollTo(activeIndex)
       }
 
       // Updates the CSS custom property that controls the autoplay progress
@@ -117,6 +170,7 @@
         var target = activeIndex + direction
         if (target >= slides.length) target = loop ? 0 : slides.length - 1
         if (target < 0) target = loop ? slides.length - 1 : 0
+        lastDirection = direction
         setActive(target)
         progress = autoplay ? 0 : 1
         updateIndicatorProgress(progress)
@@ -133,6 +187,7 @@
       // and will resume when the pointer leaves the carousel.
       function go (index) {
         stop()
+        lastDirection = index < activeIndex ? -1 : 1
         setActive(index)
         progress = 1
         updateIndicatorProgress(progress)
@@ -225,6 +280,13 @@
           var related = e.relatedTarget
           if ((!related || !carousel.contains(related)) && autoplay) start()
         })
+      }
+
+      // Lay out the cube before the first slide is shown, and keep its geometry
+      // in step with the stage width.
+      if (isCube) {
+        measureCube()
+        window.addEventListener('resize', measureCube)
       }
 
       // Apply the initial slide and clear the loading state after setup.

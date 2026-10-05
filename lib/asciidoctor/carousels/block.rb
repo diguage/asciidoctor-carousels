@@ -18,6 +18,8 @@ module Asciidoctor
       DEFAULT_INTERVAL = '5000'
       DEFAULT_ACTIVE_SLIDE = '1'
       STAGE_ALIGNMENTS = %w(left right center).freeze
+      DEFAULT_TRANSITION = 'slide'
+      TRANSITIONS = %w(slide fade zoom flip cube cards coverflow kenburns).freeze
 
       def process parent, reader, attrs
         doc = parent.document
@@ -93,7 +95,7 @@ module Asciidoctor
       def carousel_attributes carousel_id, attrs
         role = ['carousel', attrs['role']].compact
         role << 'is-loading'
-        role << 'is-fade' if option_enabled? attrs, 'fade'
+        role << %(carousel-transition-#{transition attrs})
         role << %(carousel-align-#{stage_align attrs})
         attributes = { 'id' => carousel_id, 'role' => role.join(' ') }
         attributes[:attribute_entries] = attrs[:attribute_entries] if attrs.key? :attribute_entries
@@ -109,6 +111,7 @@ module Asciidoctor
           %(data-keyboard="#{!option_enabled? attrs, 'nokeyboard'}"),
           %(data-touch="#{!option_enabled? attrs, 'notouch'}"),
           %(data-pause-on-hover="#{option_enabled? attrs, 'pause-on-hover'}"),
+          %(data-transition="#{transition attrs}"),
         ]
         style = []
         style << %(--carousel-height: #{attrs['height']}) if attrs['height']
@@ -120,6 +123,14 @@ module Asciidoctor
       def stage_align attrs
         align = attrs['align']
         STAGE_ALIGNMENTS.include?(align) ? align : 'center'
+      end
+
+      # Resolves the transition effect from the fade attribute, which names the
+      # effect to use. A value the extension does not know falls back to a plain
+      # slide, the same way an unknown align falls back to center.
+      def transition attrs
+        value = attrs['fade']
+        TRANSITIONS.include?(value) ? value : DEFAULT_TRANSITION
       end
 
       def active_slide_index attrs

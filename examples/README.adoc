@@ -13,16 +13,28 @@ The AsciiDoc files reference them using the `imagesdir` document attribute, so t
 |File |Description
 
 |[.path]_basic.adoc_
-|A minimal carousel containing three block image macros.
+|A minimal carousel containing four block image macros.
+
+|[.path]_height.adoc_
+|A carousel whose stage height is fixed.
+
+|[.path]_width.adoc_
+|A carousel whose stage width is fixed.
+
+|[.path]_aligned.adoc_
+|The same carousel aligned left, right, and center, with text flowing beside the floated stages.
 
 |[.path]_advanced.adoc_
 |A carousel configured with autoplay, looping, a fade transition, pause-on-hover, a custom interval, and a fixed stage height.
 
+|[.path]_transitions.adoc_
+|The same carousel shown once per transition effect: `slide`, `fade`, `zoom`, `flip`, `cube`, `cards`, `coverflow`, and `kenburns`.
+
 |[.path]_diagrams.adoc_
 |A carousel that mixes an Asciidoctor Diagram block, a diagram block macro, and a diagram inline macro.
 
-|[.path]_all.adoc_
-|Combines the three examples into one document for a quick review.
+|[.path]_index.adoc_
+|Combines every example into one document for a quick review; this is the file the Pages workflow publishes. It includes each file listed above in full, so the examples cannot drift apart; keep the content in the individual files.
 |===
 
 == Running from the project root
@@ -30,13 +42,12 @@ The AsciiDoc files reference them using the `imagesdir` document attribute, so t
 The extension does not need to be installed as a gem.
 Use `-I lib` to add the project `lib` directory to Ruby's load path.
 
-Convert the basic example:
+Convert an example by naming it, for instance the basic one:
 
  $ asciidoctor -I lib -r asciidoctor-carousels -o examples/basic.html examples/basic.adoc
 
-Convert the advanced example:
-
- $ asciidoctor -I lib -r asciidoctor-carousels -o examples/advanced.html examples/advanced.adoc
+The same command converts [.path]_height.adoc_, [.path]_width.adoc_, [.path]_aligned.adoc_, [.path]_advanced.adoc_, and [.path]_transitions.adoc_.
+Each of those files is also included by [.path]_index.adoc_, so edit the individual file and leave the combined document alone.
 
 == Running the diagram examples
 
@@ -45,11 +56,11 @@ For PlantUML, Java must be available on `PATH`.
 
 Convert `diagrams.adoc`:
 
- $ asciidoctor -I lib -r asciidoctor-carousels -r asciidoctor-diagram -o examples/diagrams.html examples/diagrams.adoc
+ $ asciidoctor -I lib -r asciidoctor-carousels -r asciidoctor-diagram -r asciidoctor-kroki -o examples/diagrams.html examples/diagrams.adoc
 
 Convert all examples at once:
 
- $ asciidoctor -I lib -r asciidoctor-carousels -r asciidoctor-diagram -o examples/all.html examples/all.adoc
+ $ asciidoctor -I lib -r asciidoctor-carousels -r asciidoctor-diagram -r asciidoctor-kroki -o examples/index.html examples/index.adoc
 
 Diagram generation writes images next to the document and stores metadata under `.asciidoctor/diagram`.
 If a diagram cannot be rendered, the carousel falls back to a normal example block so the diagram source remains visible.

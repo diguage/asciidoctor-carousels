@@ -2,7 +2,7 @@
 
 This example requires Asciidoctor Diagram.
 
-[carousel]
+[carousel,height=32rem]
 ====
 .Flow diagram
 [plantuml,target=flow,format=svg]
