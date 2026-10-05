@@ -261,13 +261,15 @@ image::images/c.jpg[Third]
 |Set the active slide back from the edges and turn the neighbouring slides beside it, so the slide on screen stands in the middle and nothing covers it.
 
 |`kenburns`
-|Cross-fade while the slide on screen slowly zooms, in the manner of a documentary pan.
+|Cross-fade while the slide on screen grows from just under its full size into place, then holds at that size.
 |===
 
 An effect the extension does not recognize falls back to `slide`.
 
 Every effect except `slide` stacks the slides, so the stage takes its height from the slide that is showing.
 When the slides do not share an aspect ratio, set `height` or `aspect-ratio` to hold the stage steady and to keep the neighbouring slides of `cards` and `coverflow` from being clipped.
+
+The `kenburns` growth takes 800 ms and then holds, so the slide has settled well before it changes at the default interval; an `interval` shorter than that cuts the growth short.
 
 === Indicator preview
 

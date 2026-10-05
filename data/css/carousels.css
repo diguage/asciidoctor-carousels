@@ -270,18 +270,24 @@
 }
 
 /* Fade: the slides cross-fade in place. Ken Burns shares the crossfade and
-   slowly zooms the image that is on screen. */
+   slowly drifts the image that is on screen. */
 .carousel.carousel-transition-kenburns .carousel-slide.is-active img {
-  animation: carousel-ken-burns 5s ease-out both;
+  /* Shorter than the three second interval the extension defaults to, so the
+     image has settled before the slide changes when autoplay is on. */
+  animation: carousel-ken-burns 800ms ease-out both;
 }
 
+/* The image starts a little under its full size and grows to the size of the
+   slide, the width the other effects show it at, then stops there. No frame
+   grows past scale(1): a slide already fills the stage, so anything larger
+   would crop the image and cut the corners off a logo. */
 @keyframes carousel-ken-burns {
   from {
-    transform: scale(1);
+    transform: scale(0.94) translate(-1.5%, 1.5%);
   }
 
   to {
-    transform: scale(1.12) translate(1%, -1%);
+    transform: scale(1) translate(0, 0);
   }
 }
 

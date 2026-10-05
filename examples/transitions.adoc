@@ -139,7 +139,7 @@ image::logo-fill-bw.svg[Asciidoctor black and white logo]
 
 == Ken Burns
 
-The slide on screen slowly zooms while the slides cross-fade.
+The slide on screen grows from just under its full size into place while the slides cross-fade.
 
 [carousel,fade=kenburns,width=32rem]
 ====
