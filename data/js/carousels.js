@@ -21,7 +21,7 @@
       // Read carousel behavior from the data attributes written by the processor.
       var config = stage.dataset || {}
       var activeIndex = clamp(parseInt(config.activeSlide || '1', 10) - 1, 0, slides.length - 1)
-      var interval = parsePositiveInt(config.interval || '5000', 5000)
+      var interval = parsePositiveInt(config.interval || '3000', 3000)
       var autoplay = config.autoplay === 'true'
       var loop = config.loop !== 'false'
       var keyboard = config.keyboard !== 'false'

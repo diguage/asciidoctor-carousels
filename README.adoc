@@ -156,7 +156,7 @@ image::images/c.jpg[Third]
 |Attribute |Description
 
 |`interval`
-|Autoplay interval in milliseconds. Defaults to `5000`.
+|Autoplay interval in milliseconds. Defaults to `3000`.
 
 |`active-slide`
 |Initial slide number, starting at `1`. Defaults to `1`.

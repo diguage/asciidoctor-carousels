@@ -15,7 +15,7 @@ module Asciidoctor
       use_dsl
       on_context :example
 
-      DEFAULT_INTERVAL = '5000'
+      DEFAULT_INTERVAL = '3000'
       DEFAULT_ACTIVE_SLIDE = '1'
       STAGE_ALIGNMENTS = %w(left right center).freeze
       DEFAULT_TRANSITION = 'slide'
