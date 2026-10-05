@@ -3,7 +3,8 @@
 
 The `align` attribute positions the stage to the left, right, or center. With `align=left` or `align=right`, the carousel floats so following content can fill the opposite side. The default is `center`.
 
-.align=left
+== `align=left`
+
 [carousel,width=32rem,align=left]
 ====
 .Asciidoctor color logo
@@ -24,7 +25,8 @@ This paragraph follows a left-aligned carousel. It wraps into the space on the r
 ---
 ---
 
-.align=right
+== `align=right`
+
 [carousel,width=32rem,align=right]
 ====
 .Asciidoctor color logo
@@ -45,7 +47,8 @@ This paragraph follows a right-aligned carousel. It wraps into the space on the 
 ---
 ---
 
-.align=center
+== `align=center`
+
 [carousel,width=32rem,align=center]
 ====
 .Asciidoctor color logo
