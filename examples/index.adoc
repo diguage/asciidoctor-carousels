@@ -4,6 +4,13 @@
 :toclevels: 3
 :imagesdir: images
 
+Welcome! This page collects runnable examples for the AsciiDoc Carousels
+extension. The project source is available on
+https://github.com/diguage/asciidoctor-carousels[GitHub], and the gem is
+published at https://rubygems.org/gems/asciidoctor-carousels[RubyGems]. Use
+those links to find installation instructions, usage details, and the latest
+releases.
+
 // Each example is included in full, title and all. The leveloffset turns the
 // title of the included document into a section of this one, so the examples
 // stay complete files that can also be converted on their own.
