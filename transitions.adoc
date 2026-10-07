@@ -1,0 +1,157 @@
+= Transition Effects
+:imagesdir: images
+
+The `fade` attribute selects the effect used to move between slides.
+Each carousel below uses the same four images so the effects can be compared directly.
+
+== Slide
+
+The default effect moves the slides horizontally.
+
+[carousel,fade=slide,width=32rem]
+====
+.Ascidoctor color logo
+image::logo-fill-color.svg[Asciidoctor color logo]
+
+.Ascidoctor square color logo
+image::logo-fill-square-color.svg[Asciidoctor square color logo]
+
+.Ascidoctor outline logo
+image::logo-outline-color.svg[Asciidoctor outline color logo]
+
+.Black and white
+image::logo-fill-bw.svg[Asciidoctor black and white logo]
+====
+
+== Fade
+
+The slides cross-fade in place.
+
+[carousel,fade=fade,width=32rem]
+====
+.Ascidoctor color logo
+image::logo-fill-color.svg[Asciidoctor color logo]
+
+.Ascidoctor square color logo
+image::logo-fill-square-color.svg[Asciidoctor square color logo]
+
+.Ascidoctor outline logo
+image::logo-outline-color.svg[Asciidoctor outline color logo]
+
+.Black and white
+image::logo-fill-bw.svg[Asciidoctor black and white logo]
+====
+
+== Zoom
+
+The incoming slide settles back to its natural size while the outgoing slide grows towards the reader.
+
+[carousel,fade=zoom,width=32rem]
+====
+.Ascidoctor color logo
+image::logo-fill-color.svg[Asciidoctor color logo]
+
+.Ascidoctor square color logo
+image::logo-fill-square-color.svg[Asciidoctor square color logo]
+
+.Ascidoctor outline logo
+image::logo-outline-color.svg[Asciidoctor outline color logo]
+
+.Black and white
+image::logo-fill-bw.svg[Asciidoctor black and white logo]
+====
+
+== Flip
+
+Each slide turns around its vertical centre line.
+
+[carousel,fade=flip,width=32rem]
+====
+.Ascidoctor color logo
+image::logo-fill-color.svg[Asciidoctor color logo]
+
+.Ascidoctor square color logo
+image::logo-fill-square-color.svg[Asciidoctor square color logo]
+
+.Ascidoctor outline logo
+image::logo-outline-color.svg[Asciidoctor outline color logo]
+
+.Black and white
+image::logo-fill-bw.svg[Asciidoctor black and white logo]
+====
+
+== Cube
+
+The slides roll as the faces of a cube.
+
+[carousel,fade=cube,width=32rem]
+====
+.Ascidoctor color logo
+image::logo-fill-color.svg[Asciidoctor color logo]
+
+.Ascidoctor square color logo
+image::logo-fill-square-color.svg[Asciidoctor square color logo]
+
+.Ascidoctor outline logo
+image::logo-outline-color.svg[Asciidoctor outline color logo]
+
+.Black and white
+image::logo-fill-bw.svg[Asciidoctor black and white logo]
+====
+
+== Cards
+
+The neighbouring slides stay visible behind the active one.
+
+[carousel,fade=cards,width=32rem]
+====
+.Ascidoctor color logo
+image::logo-fill-color.svg[Asciidoctor color logo]
+
+.Ascidoctor square color logo
+image::logo-fill-square-color.svg[Asciidoctor square color logo]
+
+.Ascidoctor outline logo
+image::logo-outline-color.svg[Asciidoctor outline color logo]
+
+.Black and white
+image::logo-fill-bw.svg[Asciidoctor black and white logo]
+====
+
+== Coverflow
+
+The active slide is set back from the edges so the neighbouring slides can stand beside it, turned towards the middle.
+
+[carousel,fade=coverflow,width=32rem]
+====
+.Ascidoctor color logo
+image::logo-fill-color.svg[Asciidoctor color logo]
+
+.Ascidoctor square color logo
+image::logo-fill-square-color.svg[Asciidoctor square color logo]
+
+.Ascidoctor outline logo
+image::logo-outline-color.svg[Asciidoctor outline color logo]
+
+.Black and white
+image::logo-fill-bw.svg[Asciidoctor black and white logo]
+====
+
+== Ken Burns
+
+The slide on screen grows from just under its full size into place while the slides cross-fade.
+
+[carousel,fade=kenburns,width=32rem]
+====
+.Ascidoctor color logo
+image::logo-fill-color.svg[Asciidoctor color logo]
+
+.Ascidoctor square color logo
+image::logo-fill-square-color.svg[Asciidoctor square color logo]
+
+.Ascidoctor outline logo
+image::logo-outline-color.svg[Asciidoctor outline color logo]
+
+.Black and white
+image::logo-fill-bw.svg[Asciidoctor black and white logo]
+====

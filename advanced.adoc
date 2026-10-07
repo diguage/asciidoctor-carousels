@@ -1,0 +1,19 @@
+= Advanced Carousel
+:imagesdir: images
+
+This carousel enables autoplay, looping, a fade transition, pause-on-hover, and a fixed stage height (`height=32rem`).
+
+[carousel#brand-tour%autoplay%loop%pause-on-hover,fade=fade,interval=2500,height=32rem]
+====
+// .Color
+image::logo-fill-color.svg[Asciidoctor color logo]
+
+.Square
+image::logo-fill-square-color.svg[Asciidoctor square color logo]
+
+.Outline
+image::logo-outline-color.svg[Asciidoctor outline logo]
+
+.Black and white
+image::logo-fill-bw.svg[Asciidoctor black and white logo]
+====

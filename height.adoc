@@ -1,0 +1,19 @@
+= Height Carousel
+:imagesdir: images
+
+The height of this carousel is limited to `32rem`.
+
+[carousel,height=32rem]
+====
+.Asciidoctor color logo
+image::logo-fill-color.svg[Asciidoctor color logo]
+
+.Asciidoctor square color logo
+image::logo-fill-square-color.svg[Asciidoctor square color logo]
+
+.Asciidoctor outline logo
+image::logo-outline-color.svg[Asciidoctor outline logo]
+
+.Black and white
+image::logo-fill-bw.svg[Asciidoctor black and white logo]
+====
