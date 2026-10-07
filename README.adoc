@@ -7,6 +7,8 @@ ifdef::env-github[]
 :warning-caption: :warning:
 endif::[]
 
+image:https://badge.fury.io/rb/asciidoctor-carousels.svg["Gem Version", link="https://badge.fury.io/rb/asciidoctor-carousels"]
+
 An Asciidoctor extension that adds a carousel block to AsciiDoc.
 It turns a sequence of images into a responsive, accessible image carousel (or slideshow).
 
